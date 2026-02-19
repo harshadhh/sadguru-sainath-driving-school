@@ -2055,9 +2055,12 @@ ul { list-style: none; }
 /* ============================================================
    BRANCH LIST + QUICK INFO — RESPONSIVE
    ============================================================ */
-@media (max-width: 768px) {
-  /* Branch cards: side-by-side → single column on mobile */
+@media (max-width: 1024px) {
+  /* Branch cards: side-by-side → single column on tablet & mobile */
   .branch-list    { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
   .bl-map-wrap    { height: 200px; }
   .bl-info        { padding: 20px 18px 22px; }
   .bl-num         { font-size: 2rem; }
