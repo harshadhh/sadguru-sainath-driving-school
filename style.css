@@ -1530,8 +1530,41 @@ ul { list-style: none; }
 }
 
 /* ============================================================
-   RESPONSIVE
+   RESPONSIVE — ALL BREAKPOINTS CONSOLIDATED
    ============================================================ */
+
+/* --- Base styles for new components --- */
+
+/* 3-col info strip (homepage, below branch maps) */
+.info-strip-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+/* Stats bar (team page) */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 20px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.stats-bar-block {
+  padding: 28px 24px;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.09);
+  min-width: 0;
+}
+.stats-bar-block:last-child {
+  border-right: none;
+}
+
+/* --- 1024px — Tablets --- */
 @media (max-width: 1024px) {
   .services-grid    { grid-template-columns: repeat(2, 1fr); }
   .process-grid     { grid-template-columns: repeat(2, 1fr); }
@@ -1541,10 +1574,21 @@ ul { list-style: none; }
   .values-grid      { grid-template-columns: repeat(2, 1fr); }
   .modules-grid     { grid-template-columns: repeat(2, 1fr); }
   .pricing-grid     { grid-template-columns: 1fr; max-width: 460px; margin: 0 auto; }
+  .trainers-grid    { grid-template-columns: repeat(2, 1fr); }
+  .info-strip-3     { grid-template-columns: 1fr; }
+  .stats-bar        { grid-template-columns: repeat(2, 1fr); }
+  .stats-bar-block  { border-bottom: 1px solid rgba(255,255,255,0.09); }
+  .stats-bar-block:nth-child(even) { border-right: none; }
+  .stats-bar-block:nth-last-child(-n+2) { border-bottom: none; }
 }
 
+/* --- 768px — Mobile --- */
 @media (max-width: 768px) {
   .section { padding: 64px 0; }
+
+  /* Prevent horizontal overflow globally */
+  html, body { overflow-x: hidden; }
+  .container  { overflow-x: hidden; }
 
   /* Mobile nav */
   .main-nav {
@@ -1562,6 +1606,7 @@ ul { list-style: none; }
   .main-nav.nav-open { display: flex; }
   .hamburger { display: flex; }
 
+  /* Hero */
   .hero-stats {
     flex-direction: column;
     width: 100%;
@@ -1576,45 +1621,66 @@ ul { list-style: none; }
     width: 100%;
   }
   .stat-block:last-child { border-bottom: none; }
-  .stat-lbl { margin-top: 0; }
-  .hero-ctas { flex-direction: column; }
+  .stat-lbl   { margin-top: 0; }
+  .hero-ctas  { flex-direction: column; }
   .hero-ctas .btn { width: 100%; }
 
+  /* All grids → single column */
   .services-grid    { grid-template-columns: 1fr; }
   .process-grid     { grid-template-columns: 1fr; }
   .trainers-grid    { grid-template-columns: 1fr; }
   .location-grid    { grid-template-columns: 1fr; }
-  .map-box          { height: 280px; }
   .rto-grid         { grid-template-columns: 1fr; }
   .contact-layout   { grid-template-columns: 1fr; }
-  .form-card        { padding: 28px 20px; }
-  .form-row         { grid-template-columns: 1fr; }
-  .values-grid      { grid-template-columns: 1fr 1fr; }
   .modules-grid     { grid-template-columns: 1fr; }
   .footer-grid      { grid-template-columns: 1fr; gap: 28px; }
+  .branches-grid    { grid-template-columns: 1fr; }
+  .contact-branches { grid-template-columns: 1fr; }
+  .info-strip-3     { grid-template-columns: 1fr; }
+  .stats-bar        { grid-template-columns: repeat(2, 1fr); border-radius: 16px; }
+  .stats-bar-block  { padding: 18px 14px; border-bottom: 1px solid rgba(255,255,255,0.09); }
+  .stats-bar-block:nth-child(even)      { border-right: none; }
+  .stats-bar-block:nth-last-child(-n+2) { border-bottom: none; }
 
-  .cta-strip-inner  { flex-direction: column; text-align: center; }
-  .cta-btns         { justify-content: center; flex-direction: column; align-items: center; }
+  .values-grid      { grid-template-columns: 1fr 1fr; }
+  .map-box          { height: 280px; }
 
+  /* Form */
+  .form-card { padding: 28px 20px; }
+  .form-row  { grid-template-columns: 1fr; }
+
+  /* Branch buttons */
+  .branch-btns { flex-direction: column; }
+
+  /* CTA strip */
+  .cta-strip-inner { flex-direction: column; text-align: center; }
+  .cta-btns { justify-content: center; flex-direction: column; align-items: center; }
+
+  /* Testimonials */
   .testimonial-card { padding: 28px 20px; }
 
-
+  /* Sticky call pill */
   .sticky-call { display: flex; align-items: center; justify-content: center; gap: 8px; }
-  /* No body padding needed — button floats above content */
 
+  /* Thank you */
   .ty-card { padding: 44px 24px; }
   .ty-btns { flex-direction: column; align-items: center; }
   .ty-btns .btn { width: 100%; }
 
+  /* Trust bar */
   .trust-sep { display: none; }
   .trust-bar-inner { gap: 8px 14px; }
 }
 
+/* --- 480px — Small phones --- */
 @media (max-width: 480px) {
   .container { padding: 0 16px; }
-  .values-grid { grid-template-columns: 1fr; }
+  .values-grid      { grid-template-columns: 1fr; }
+  .stats-bar        { grid-template-columns: 1fr; }
+  .stats-bar-block  { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.09); }
+  .stats-bar-block:last-child { border-bottom: none; }
   .docs-table th,
-  .docs-table td { padding: 10px 12px; font-size: 0.8rem; }
+  .docs-table td    { padding: 10px 12px; font-size: 0.8rem; }
 }
 
 /* ============================================================
@@ -1803,8 +1869,4 @@ ul { list-style: none; }
 .cbranch-link.red { background: var(--red); color: var(--white); border-color: var(--red); }
 .cbranch-link.red:hover { background: var(--red-dark); border-color: var(--red-dark); }
 
-@media (max-width: 768px) {
-  .branches-grid  { grid-template-columns: 1fr; }
-  .contact-branches { grid-template-columns: 1fr; }
-  .branch-btns { flex-direction: column; }
-}
+/* Branches and contact maps mobile — handled in main @media block below */
