@@ -276,33 +276,3 @@
   }
 
 })();
-
-const form = document.getElementById("contactForm");
-
-if (form) {
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const formData = {
-      name: document.getElementById("f-name").value,
-      phone: document.getElementById("f-phone").value,
-      email: document.getElementById("f-email").value,
-      service: document.getElementById("f-service").value,
-      timing: document.getElementById("f-timing").value,
-      message: document.getElementById("f-message").value
-    };
-
-    fetch("https://script.google.com/macros/s/AKfycbwSqGYPIF4y0rXLUBax4S1Ap5jindRxOUY9ksgOXyIFpUFsMS8ojWxww1L7_6lC-Hds/exec", {
-      method: "POST",
-      body: JSON.stringify(formData)
-    })
-    .then(response => response.json())
-    .then(data => {
-      alert("Thank you! We will contact you soon.");
-      form.reset();
-    })
-    .catch(error => {
-      alert("Something went wrong. Please call us directly.");
-    });
-  });
-}

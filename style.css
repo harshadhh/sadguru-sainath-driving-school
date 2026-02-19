@@ -959,16 +959,28 @@ ul { list-style: none; }
 .sticky-call {
   display: none;
   position: fixed;
-  bottom: 0; left: 0; right: 0;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 998;
   background: var(--red);
   color: var(--white);
   text-align: center;
-  padding: 14px;
+  padding: 15px 32px;
   font-family: var(--font-head);
   font-size: 1rem;
   font-weight: 700;
-  box-shadow: 0 -4px 20px rgba(227,30,36,0.42);
+  border-radius: 50px;
+  box-shadow: 0 6px 28px rgba(227,30,36,0.52), 0 2px 8px rgba(0,0,0,0.18);
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+  border: 2.5px solid rgba(255,255,255,0.25);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  max-width: calc(100vw - 40px);
+}
+.sticky-call:active {
+  transform: translateX(-50%) scale(0.97);
+  box-shadow: 0 3px 14px rgba(227,30,36,0.45);
 }
 
 /* ============================================================
@@ -1586,8 +1598,9 @@ ul { list-style: none; }
 
   .testimonial-card { padding: 28px 20px; }
 
-  .sticky-call { display: block; }
-  body { padding-bottom: 52px; }
+
+  .sticky-call { display: flex; align-items: center; justify-content: center; gap: 8px; }
+  /* No body padding needed — button floats above content */
 
   .ty-card { padding: 44px 24px; }
   .ty-btns { flex-direction: column; align-items: center; }
