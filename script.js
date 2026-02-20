@@ -213,47 +213,68 @@
      Validates required fields then redirects to thank-you.html
      Works on GitHub Pages, local server, everywhere.
   ---------------------------------------------------------- */
-  function contactForm() {
-    var form = document.getElementById('contactForm');
-    if (!form) return;
+function contactForm() {
+  var form = document.getElementById('contactForm');
+  if (!form) return;
 
-    form.addEventListener('submit', function (e) {
-      e.preventDefault(); // Always prevent default — we handle redirect manually
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
 
-      var nameEl    = document.getElementById('f-name');
-      var phoneEl   = document.getElementById('f-phone');
-      var serviceEl = document.getElementById('f-service');
+    var nameEl    = document.getElementById('f-name');
+    var phoneEl   = document.getElementById('f-phone');
+    var emailEl   = document.getElementById('f-email');
+    var serviceEl = document.getElementById('f-service');
+    var timingEl  = document.getElementById('f-timing');
+    var messageEl = document.getElementById('f-message');
 
-      var name    = nameEl    ? nameEl.value.trim()    : '';
-      var phone   = phoneEl   ? phoneEl.value.trim()   : '';
-      var service = serviceEl ? serviceEl.value         : '';
+    var name    = nameEl    ? nameEl.value.trim() : '';
+    var phone   = phoneEl   ? phoneEl.value.trim() : '';
+    var email   = emailEl   ? emailEl.value.trim() : '';
+    var service = serviceEl ? serviceEl.value : '';
+    var timing  = timingEl  ? timingEl.value : '';
+    var message = messageEl ? messageEl.value.trim() : '';
 
-      // --- VALIDATION ---
-      if (!name) {
-        showError(nameEl, 'Please enter your full name.');
-        return;
-      }
-      var digits = phone.replace(/\D/g, '');
-      if (!phone || digits.length < 10) {
-        showError(phoneEl, 'Please enter a valid 10-digit phone number.');
-        return;
-      }
-      if (!service) {
-        showError(serviceEl, 'Please select a service.');
-        return;
-      }
+    // --- VALIDATION ---
+    if (!name) {
+      showError(nameEl, 'Please enter your full name.');
+      return;
+    }
 
-      // --- SUCCESS: redirect to thank-you.html ---
+    var digits = phone.replace(/\D/g, '');
+    if (!phone || digits.length < 10) {
+      showError(phoneEl, 'Please enter a valid 10-digit phone number.');
+      return;
+    }
+
+    if (!service) {
+      showError(serviceEl, 'Please select a service.');
+      return;
+    }
+
+    // --- EMAILJS SEND ---
+    emailjs.send("service_ua8w179", "template_vy5fe0d", {
+      name: name,
+      phone: phone,
+      email: email,
+      service: service,
+      timing: timing,
+      message: message
+    })
+    .then(function () {
       window.location.href = 'thank-you.html';
+    })
+    .catch(function (error) {
+      alert('Something went wrong. Please call us directly.');
+      console.log(error);
     });
+  });
 
-    // Clear error styling on input
-    var inputs = form.querySelectorAll('input, select, textarea');
-    inputs.forEach(function (el) {
-      el.addEventListener('input', function () { clearError(el); });
-      el.addEventListener('change', function () { clearError(el); });
-    });
-  }
+  var inputs = form.querySelectorAll('input, select, textarea');
+  inputs.forEach(function (el) {
+    el.addEventListener('input', function () { clearError(el); });
+    el.addEventListener('change', function () { clearError(el); });
+  });
+}
 
   function showError(el, msg) {
     if (!el) return;
