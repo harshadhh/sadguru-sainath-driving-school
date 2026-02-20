@@ -306,3 +306,28 @@ if (form) {
     });
   });
 }
+
+const form = document.getElementById("contactForm");
+
+if (form) {
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    emailjs.send("service_ua8w179", "template_vy5fe0d", {
+      name: document.getElementById("f-name").value,
+      phone: document.getElementById("f-phone").value,
+      email: document.getElementById("f-email").value,
+      service: document.getElementById("f-service").value,
+      timing: document.getElementById("f-timing").value,
+      message: document.getElementById("f-message").value
+    })
+    .then(function(response) {
+      alert("Enquiry sent successfully!");
+      form.reset();
+    })
+    .catch(function(error) {
+      alert("Failed to send enquiry. Please try again.");
+      console.log(error);
+    });
+  });
+}
