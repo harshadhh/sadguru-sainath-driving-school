@@ -283,7 +283,7 @@ if (form) {
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+    emailjs.send("service_ua8w179", "template_vy5fe0d", {
       name: document.getElementById("f-name").value,
       phone: document.getElementById("f-phone").value,
       email: document.getElementById("f-email").value,
