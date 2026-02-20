@@ -252,7 +252,7 @@ function contactForm() {
     }
 
     // --- EMAILJS SEND ---
-    emailjs.send("service_ua8w179", "template_vy5fe0d", {
+    emailjs.send("service_2v17tuw", "template_vy5fe0d", {
       name: name,
       phone: phone,
       email: email,
