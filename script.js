@@ -213,7 +213,7 @@
      Validates required fields then redirects to thank-you.html
      Works on GitHub Pages, local server, everywhere.
   ---------------------------------------------------------- */
-function contactForm() {
+ function contactForm() {
   var form = document.getElementById('contactForm');
   if (!form) return;
 
