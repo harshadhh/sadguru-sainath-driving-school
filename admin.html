@@ -7,292 +7,144 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-/* ============================================================
-   SADGURU SAINATH DRIVING SCHOOL — ADMIN PANEL
-   Self-contained single file. No external CSS dependency.
-   ============================================================ */
-
 :root {
-  --red:        #D32F2F;
-  --red-dark:   #b71c1c;
-  --red-light:  #ffebee;
-  --blue:       #1976D2;
-  --blue-dark:  #0d47a1;
-  --blue-light: #e3f2fd;
-  --white:      #ffffff;
-  --bg:         #f0f2f5;
-  --text-dark:  #1a1a2e;
-  --text-body:  #444444;
-  --text-muted: #888888;
-  --border:     #e0e0e0;
-  --shadow-sm:  0 2px 12px rgba(0,0,0,0.07);
-  --shadow-md:  0 8px 32px rgba(0,0,0,0.12);
-  --radius:     12px;
-  --radius-lg:  20px;
-  --radius-pill:999px;
-  --font-head:  'Barlow Condensed', sans-serif;
-  --font-body:  'DM Sans', sans-serif;
-  --ease:       cubic-bezier(0.4, 0, 0.2, 1);
+  --red:#D32F2F;--red-dark:#b71c1c;--red-light:#ffebee;
+  --blue:#1976D2;--blue-dark:#0d47a1;--blue-light:#e3f2fd;
+  --white:#ffffff;--bg:#f0f2f5;--text-dark:#1a1a2e;--text-body:#444444;
+  --text-muted:#888888;--border:#e0e0e0;
+  --shadow-sm:0 2px 12px rgba(0,0,0,0.07);--shadow-md:0 8px 32px rgba(0,0,0,0.12);
+  --radius:12px;--radius-lg:20px;--radius-pill:999px;
+  --font-head:'Barlow Condensed',sans-serif;--font-body:'DM Sans',sans-serif;
+  --ease:cubic-bezier(0.4,0,0.2,1);
 }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{font-family:var(--font-body);-webkit-font-smoothing:antialiased;}
+a{text-decoration:none;color:inherit;}ul{list-style:none;}button{cursor:pointer;font-family:inherit;}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-body);font-weight:600;font-size:15px;border-radius:var(--radius-pill);border:2px solid transparent;cursor:pointer;transition:all 0.25s var(--ease);text-decoration:none;white-space:nowrap;justify-content:center;line-height:1;}
+.btn-sm{padding:8px 16px;font-size:13px;}
+.btn-primary{background:var(--red);color:white;border-color:var(--red);padding:12px 24px;}
+.btn-primary:hover{background:var(--red-dark);border-color:var(--red-dark);transform:translateY(-1px);box-shadow:0 6px 20px rgba(211,47,47,0.3);}
+.btn-outline{background:transparent;color:var(--blue);border-color:var(--blue);padding:8px 16px;}
+.btn-outline:hover{background:var(--blue);color:white;}
+.btn-full{width:100%;justify-content:center;}
+.alert{padding:12px 16px;border-radius:8px;font-size:14px;font-weight:500;margin-bottom:16px;}
+.alert-error{background:#ffebee;color:#c62828;border:1px solid #ef9a9a;}
+.alert-success{background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7;}
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 16px; }
-body { font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
-a { text-decoration: none; color: inherit; }
-ul { list-style: none; }
-button { cursor: pointer; font-family: inherit; }
+/* LOGIN */
+#loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:linear-gradient(135deg,#0d1b2a 0%,#1a1a2e 50%,#2d0a0a 100%);}
+.login-card{background:white;border-radius:20px;padding:48px 40px;width:100%;max-width:420px;box-shadow:0 24px 80px rgba(0,0,0,0.4);}
+.login-logo{display:flex;align-items:center;gap:12px;margin-bottom:28px;justify-content:center;}
+.logo-icon{width:44px;height:44px;background:var(--red);color:white;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-size:24px;font-weight:900;}
+.logo-text{display:flex;flex-direction:column;}
+.logo-name{font-family:var(--font-head);font-weight:800;font-size:18px;line-height:1;color:var(--text-dark);}
+.logo-sub{font-size:11px;color:var(--text-muted);font-weight:500;margin-top:2px;}
+.login-title{font-family:var(--font-head);font-size:30px;font-weight:900;text-align:center;margin-bottom:6px;color:var(--text-dark);}
+.login-sub-text{text-align:center;color:var(--text-muted);font-size:14px;margin-bottom:28px;}
+.login-form .form-group{margin-bottom:18px;}
+.login-form label{display:block;font-size:12px;font-weight:700;color:var(--text-muted);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:7px;}
+.login-form input{width:100%;padding:13px 16px;border:1.5px solid var(--border);border-radius:10px;font-family:var(--font-body);font-size:15px;color:var(--text-dark);transition:all 0.2s;outline:none;}
+.login-form input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(25,118,210,0.1);}
+.input-pw-wrap{position:relative;}
+.toggle-pass{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:18px;padding:4px;cursor:pointer;}
+.login-footer{text-align:center;font-size:11px;color:var(--text-muted);margin-top:20px;}
 
-/* ── BUTTONS ── */
-.btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: var(--font-body); font-weight: 600; font-size: 15px;
-  border-radius: var(--radius-pill); border: 2px solid transparent;
-  cursor: pointer; transition: all 0.25s var(--ease);
-  text-decoration: none; white-space: nowrap; justify-content: center; line-height: 1;
+/* DASHBOARD */
+#dashboardScreen{display:none;background:var(--bg);min-height:100vh;}
+.sidebar{width:256px;background:var(--text-dark);min-height:100vh;display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;z-index:200;transition:transform 0.3s var(--ease);}
+.sidebar-header{padding:22px 18px 18px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;}
+.sidebar .logo-name{color:white;font-size:15px;}
+.sidebar .logo-sub{color:rgba(255,255,255,0.4);}
+.sidebar-close{display:none;background:none;border:none;color:rgba(255,255,255,0.4);font-size:20px;cursor:pointer;padding:2px 6px;}
+.sidebar-nav{flex:1;padding:14px 10px;display:flex;flex-direction:column;gap:2px;}
+.nav-item{display:flex;align-items:center;gap:11px;padding:11px 14px;border-radius:10px;color:rgba(255,255,255,0.5);font-size:14px;font-weight:500;transition:all 0.2s;cursor:pointer;}
+.nav-item:hover{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.9);}
+.nav-item.active{background:var(--red);color:white;}
+.nav-icon{font-size:17px;width:22px;text-align:center;}
+.sidebar-footer{padding:14px 10px;border-top:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;gap:6px;}
+.sidebar-link{color:rgba(255,255,255,0.35);font-size:13px;padding:8px 12px;border-radius:8px;transition:all 0.2s;display:block;}
+.sidebar-link:hover{color:rgba(255,255,255,0.75);background:rgba(255,255,255,0.05);}
+.btn-logout{background:rgba(211,47,47,0.15);border:1px solid rgba(211,47,47,0.3);color:#ff8a80;padding:10px 14px;border-radius:8px;font-family:var(--font-body);font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;text-align:left;}
+.btn-logout:hover{background:rgba(211,47,47,0.3);color:white;}
+.dash-main{margin-left:256px;min-height:100vh;display:flex;flex-direction:column;}
+.dash-topbar{background:white;border-bottom:1px solid var(--border);padding:0 24px;height:62px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.sidebar-toggle{display:none;background:none;border:1.5px solid var(--border);border-radius:8px;padding:7px 12px;font-size:18px;cursor:pointer;}
+.topbar-right{display:flex;align-items:center;gap:16px;margin-left:auto;}
+.topbar-date{font-size:13px;color:var(--text-muted);font-weight:500;}
+.topbar-user{font-size:14px;font-weight:600;color:var(--text-dark);}
+.global-alert{padding:12px 24px;font-size:14px;font-weight:500;display:none;}
+.global-alert.alert-error{background:#ffebee;color:#c62828;border-bottom:1px solid #ef9a9a;}
+.global-alert.alert-success{background:#e8f5e9;color:#2e7d32;border-bottom:1px solid #a5d6a7;}
+.dash-section{display:none;padding:24px;flex-direction:column;gap:20px;}
+.dash-section.active{display:flex;}
+.section-title-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.section-title-bar h2{font-family:var(--font-head);font-size:26px;font-weight:900;color:var(--text-dark);}
+.section-sub{font-size:13px;color:var(--text-muted);}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.stat-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius);padding:22px 20px;transition:box-shadow 0.2s;}
+.stat-card:hover{box-shadow:var(--shadow-sm);}
+.stat-card.stat-green{border-color:#a5d6a7;background:linear-gradient(135deg,#fff,#f1f8e9);}
+.stat-card.stat-blue{border-color:#90caf9;background:linear-gradient(135deg,#fff,#e3f2fd);}
+.stat-card.stat-orange{border-color:#ffcc80;background:linear-gradient(135deg,#fff,#fff8e1);}
+.stat-icon{font-size:26px;margin-bottom:10px;}
+.stat-num{font-family:var(--font-head);font-size:34px;font-weight:900;color:var(--text-dark);line-height:1;margin-bottom:5px;}
+.stat-label{font-size:11px;color:var(--text-muted);font-weight:600;letter-spacing:0.3px;text-transform:uppercase;}
+.overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.dash-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius);padding:22px;}
+.dash-card h3{font-family:var(--font-head);font-size:19px;font-weight:800;margin-bottom:14px;color:var(--text-dark);}
+.quick-actions{display:flex;flex-direction:column;gap:9px;}
+.quick-btn{background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:11px 15px;text-align:left;font-family:var(--font-body);font-size:14px;font-weight:600;color:var(--text-dark);cursor:pointer;transition:all 0.2s;}
+.quick-btn:hover{background:var(--red-light);border-color:var(--red);color:var(--red);}
+.recent-list{display:flex;flex-direction:column;gap:7px;}
+.recent-item{display:flex;align-items:center;gap:10px;padding:9px 11px;background:var(--bg);border-radius:8px;font-size:13px;}
+.ri-icon{font-size:18px;}.ri-text{flex:1;color:var(--text-dark);font-weight:500;}.ri-time{font-size:11px;color:var(--text-muted);}
+.recent-empty{text-align:center;color:var(--text-muted);font-size:13px;padding:22px;line-height:1.7;}
+.form-card{background:white;border:1.5px solid var(--blue);border-radius:var(--radius);padding:26px;}
+.form-card h3{font-family:var(--font-head);font-size:21px;font-weight:800;margin-bottom:18px;color:var(--text-dark);}
+.admin-form .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.admin-form .form-group{margin-bottom:14px;}
+.admin-form label{display:block;font-size:12px;font-weight:700;color:var(--text-muted);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:5px;}
+.admin-form input,.admin-form select,.admin-form textarea{width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:8px;font-family:var(--font-body);font-size:14px;color:var(--text-dark);outline:none;transition:all 0.2s;background:white;}
+.admin-form input:focus,.admin-form select:focus,.admin-form textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(25,118,210,0.1);}
+.admin-form textarea{resize:vertical;min-height:68px;}
+.form-actions{display:flex;gap:10px;margin-top:4px;}
+.btn-cancel{background:white;color:var(--text-muted);border:1.5px solid var(--border);padding:11px 22px;border-radius:var(--radius-pill);font-family:var(--font-body);font-weight:600;font-size:14px;cursor:pointer;transition:all 0.2s;}
+.btn-cancel:hover{border-color:var(--red);color:var(--red);}
+.form-status{margin-top:10px;font-size:13px;font-weight:600;}
+.form-status.success{color:#2e7d32;}.form-status.error{color:#c62828;}.form-status.loading{color:var(--blue);}
+.table-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
+.table-search{padding:9px 13px;border:1.5px solid var(--border);border-radius:8px;font-family:var(--font-body);font-size:13px;outline:none;min-width:150px;max-width:260px;flex:1;}
+.table-search:focus{border-color:var(--blue);}
+.table-wrap{overflow-x:auto;}
+.data-table{width:100%;border-collapse:collapse;font-size:13px;}
+.data-table th{background:var(--bg);padding:11px 13px;text-align:left;font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:0.5px;text-transform:uppercase;border-bottom:1.5px solid var(--border);white-space:nowrap;}
+.data-table td{padding:12px 13px;border-bottom:1px solid #f0f0f0;color:var(--text-dark);vertical-align:top;max-width:180px;word-break:break-word;}
+.data-table td a{color:var(--blue);}
+.data-table tr:hover td{background:#fafbff;}
+.table-empty{text-align:center;color:var(--text-muted);padding:36px !important;font-style:italic;}
+.status-badge{display:inline-block;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap;}
+.status-present{background:#e8f5e9;color:#2e7d32;}.status-absent{background:#ffebee;color:#c62828;}.status-leave{background:#fff8e1;color:#f57f17;}
+.status-new{background:#e3f2fd;color:#1565c0;}.status-enrolled{background:#e8f5e9;color:#2e7d32;}.status-followup{background:#fff8e1;color:#e65100;}
+.status-noissue{background:#e8f5e9;color:#2e7d32;}.status-issue{background:#fff8e1;color:#f57f17;}.status-repair{background:#ffebee;color:#c62828;}
+.pay-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+
+@media(max-width:960px){
+  .sidebar{transform:translateX(-100%);}
+  .sidebar.open{transform:translateX(0);box-shadow:4px 0 40px rgba(0,0,0,0.25);}
+  .sidebar-close{display:block;}.sidebar-toggle{display:flex;}.dash-main{margin-left:0;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);}.overview-grid{grid-template-columns:1fr;}
+  .admin-form .form-row{grid-template-columns:1fr;}.pay-stats-row{grid-template-columns:1fr 1fr;}
 }
-.btn-sm { padding: 8px 16px; font-size: 13px; }
-.btn-primary { background: var(--red); color: white; border-color: var(--red); padding: 12px 24px; }
-.btn-primary:hover { background: var(--red-dark); border-color: var(--red-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(211,47,47,0.3); }
-.btn-outline { background: transparent; color: var(--blue); border-color: var(--blue); padding: 8px 16px; }
-.btn-outline:hover { background: var(--blue); color: white; }
-.btn-full { width: 100%; justify-content: center; }
-
-/* ── ALERTS ── */
-.alert { padding: 12px 16px; border-radius: 8px; font-size: 14px; font-weight: 500; margin-bottom: 16px; }
-.alert-error   { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
-.alert-success { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
-
-/* ============================================================
-   LOGIN SCREEN
-   ============================================================ */
-#loginScreen {
-  min-height: 100vh; display: flex; align-items: center; justify-content: center;
-  padding: 24px;
-  background: linear-gradient(135deg, #0d1b2a 0%, #1a1a2e 50%, #2d0a0a 100%);
-}
-.login-card {
-  background: white; border-radius: 20px; padding: 48px 40px;
-  width: 100%; max-width: 420px;
-  box-shadow: 0 24px 80px rgba(0,0,0,0.4);
-}
-.login-logo {
-  display: flex; align-items: center; gap: 12px;
-  margin-bottom: 28px; justify-content: center;
-}
-.logo-icon {
-  width: 44px; height: 44px; background: var(--red); color: white;
-  border-radius: 12px; display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-head); font-size: 24px; font-weight: 900;
-}
-.logo-text { display: flex; flex-direction: column; }
-.logo-name { font-family: var(--font-head); font-weight: 800; font-size: 18px; line-height: 1; color: var(--text-dark); }
-.logo-sub  { font-size: 11px; color: var(--text-muted); font-weight: 500; margin-top: 2px; }
-.login-title { font-family: var(--font-head); font-size: 30px; font-weight: 900; text-align: center; margin-bottom: 6px; color: var(--text-dark); }
-.login-sub-text { text-align: center; color: var(--text-muted); font-size: 14px; margin-bottom: 28px; }
-.login-form .form-group { margin-bottom: 18px; }
-.login-form label { display: block; font-size: 12px; font-weight: 700; color: var(--text-muted); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 7px; }
-.login-form input {
-  width: 100%; padding: 13px 16px; border: 1.5px solid var(--border);
-  border-radius: 10px; font-family: var(--font-body); font-size: 15px;
-  color: var(--text-dark); transition: all 0.2s; outline: none;
-}
-.login-form input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(25,118,210,0.1); }
-.input-pw-wrap { position: relative; }
-.toggle-pass { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 18px; padding: 4px; cursor: pointer; }
-.login-footer { text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 20px; }
-
-/* ============================================================
-   DASHBOARD
-   ============================================================ */
-#dashboardScreen { display: none; background: var(--bg); min-height: 100vh; }
-
-/* ── SIDEBAR ── */
-.sidebar {
-  width: 256px; background: var(--text-dark); min-height: 100vh;
-  display: flex; flex-direction: column;
-  position: fixed; left: 0; top: 0; bottom: 0; z-index: 200;
-  transition: transform 0.3s var(--ease);
-}
-.sidebar-header {
-  padding: 22px 18px 18px; border-bottom: 1px solid rgba(255,255,255,0.08);
-  display: flex; align-items: center; justify-content: space-between;
-}
-.sidebar .logo-name { color: white; font-size: 15px; }
-.sidebar .logo-sub  { color: rgba(255,255,255,0.4); }
-.sidebar-close { display: none; background: none; border: none; color: rgba(255,255,255,0.4); font-size: 20px; cursor: pointer; padding: 2px 6px; }
-.sidebar-nav { flex: 1; padding: 14px 10px; display: flex; flex-direction: column; gap: 2px; }
-.nav-item {
-  display: flex; align-items: center; gap: 11px;
-  padding: 11px 14px; border-radius: 10px;
-  color: rgba(255,255,255,0.5); font-size: 14px; font-weight: 500;
-  transition: all 0.2s; cursor: pointer;
-}
-.nav-item:hover { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.9); }
-.nav-item.active { background: var(--red); color: white; }
-.nav-icon { font-size: 17px; width: 22px; text-align: center; }
-.sidebar-footer { padding: 14px 10px; border-top: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; gap: 6px; }
-.sidebar-link { color: rgba(255,255,255,0.35); font-size: 13px; padding: 8px 12px; border-radius: 8px; transition: all 0.2s; display: block; }
-.sidebar-link:hover { color: rgba(255,255,255,0.75); background: rgba(255,255,255,0.05); }
-.btn-logout {
-  background: rgba(211,47,47,0.15); border: 1px solid rgba(211,47,47,0.3);
-  color: #ff8a80; padding: 10px 14px; border-radius: 8px;
-  font-family: var(--font-body); font-size: 13px; font-weight: 600;
-  cursor: pointer; transition: all 0.2s; text-align: left;
-}
-.btn-logout:hover { background: rgba(211,47,47,0.3); color: white; }
-
-/* ── MAIN AREA ── */
-.dash-main { margin-left: 256px; min-height: 100vh; display: flex; flex-direction: column; }
-
-/* ── TOP BAR ── */
-.dash-topbar {
-  background: white; border-bottom: 1px solid var(--border);
-  padding: 0 24px; height: 62px;
-  display: flex; align-items: center; justify-content: space-between;
-  position: sticky; top: 0; z-index: 100;
-}
-.sidebar-toggle { display: none; background: none; border: 1.5px solid var(--border); border-radius: 8px; padding: 7px 12px; font-size: 18px; cursor: pointer; }
-.topbar-right { display: flex; align-items: center; gap: 16px; margin-left: auto; }
-.topbar-date { font-size: 13px; color: var(--text-muted); font-weight: 500; }
-.topbar-user { font-size: 14px; font-weight: 600; color: var(--text-dark); }
-
-/* ── GLOBAL ALERT BANNER ── */
-.global-alert { padding: 12px 24px; font-size: 14px; font-weight: 500; display: none; }
-.global-alert.alert-error   { background: #ffebee; color: #c62828; border-bottom: 1px solid #ef9a9a; }
-.global-alert.alert-success { background: #e8f5e9; color: #2e7d32; border-bottom: 1px solid #a5d6a7; }
-
-/* ── SECTIONS ── */
-.dash-section { display: none; padding: 24px; flex-direction: column; gap: 20px; }
-.dash-section.active { display: flex; }
-
-.section-title-bar {
-  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
-}
-.section-title-bar h2 { font-family: var(--font-head); font-size: 26px; font-weight: 900; color: var(--text-dark); }
-.section-sub { font-size: 13px; color: var(--text-muted); }
-
-/* ── STAT CARDS ── */
-.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-.stat-card {
-  background: white; border: 1.5px solid var(--border);
-  border-radius: var(--radius); padding: 22px 20px;
-  transition: box-shadow 0.2s;
-}
-.stat-card:hover { box-shadow: var(--shadow-sm); }
-.stat-card.stat-green  { border-color: #a5d6a7; background: linear-gradient(135deg, #fff, #f1f8e9); }
-.stat-card.stat-blue   { border-color: #90caf9; background: linear-gradient(135deg, #fff, #e3f2fd); }
-.stat-card.stat-orange { border-color: #ffcc80; background: linear-gradient(135deg, #fff, #fff8e1); }
-.stat-icon  { font-size: 26px; margin-bottom: 10px; }
-.stat-num   { font-family: var(--font-head); font-size: 34px; font-weight: 900; color: var(--text-dark); line-height: 1; margin-bottom: 5px; }
-.stat-label { font-size: 11px; color: var(--text-muted); font-weight: 600; letter-spacing: 0.3px; text-transform: uppercase; }
-
-/* ── OVERVIEW GRID ── */
-.overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-
-/* ── DASH CARD ── */
-.dash-card { background: white; border: 1.5px solid var(--border); border-radius: var(--radius); padding: 22px; }
-.dash-card h3 { font-family: var(--font-head); font-size: 19px; font-weight: 800; margin-bottom: 14px; color: var(--text-dark); }
-
-/* ── QUICK ACTIONS ── */
-.quick-actions { display: flex; flex-direction: column; gap: 9px; }
-.quick-btn {
-  background: var(--bg); border: 1.5px solid var(--border); border-radius: 10px;
-  padding: 11px 15px; text-align: left; font-family: var(--font-body);
-  font-size: 14px; font-weight: 600; color: var(--text-dark); cursor: pointer; transition: all 0.2s;
-}
-.quick-btn:hover { background: var(--red-light); border-color: var(--red); color: var(--red); }
-
-/* ── RECENT ACTIVITY ── */
-.recent-list { display: flex; flex-direction: column; gap: 7px; }
-.recent-item { display: flex; align-items: center; gap: 10px; padding: 9px 11px; background: var(--bg); border-radius: 8px; font-size: 13px; }
-.ri-icon { font-size: 18px; }
-.ri-text { flex: 1; color: var(--text-dark); font-weight: 500; }
-.ri-time { font-size: 11px; color: var(--text-muted); }
-.recent-empty { text-align: center; color: var(--text-muted); font-size: 13px; padding: 22px; line-height: 1.7; }
-
-/* ── FORM CARD ── */
-.form-card { background: white; border: 1.5px solid var(--blue); border-radius: var(--radius); padding: 26px; }
-.form-card h3 { font-family: var(--font-head); font-size: 21px; font-weight: 800; margin-bottom: 18px; color: var(--text-dark); }
-
-/* ── ADMIN FORM ── */
-.admin-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.admin-form .form-group { margin-bottom: 14px; }
-.admin-form label { display: block; font-size: 12px; font-weight: 700; color: var(--text-muted); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 5px; }
-.admin-form input,
-.admin-form select,
-.admin-form textarea {
-  width: 100%; padding: 11px 13px; border: 1.5px solid var(--border);
-  border-radius: 8px; font-family: var(--font-body); font-size: 14px;
-  color: var(--text-dark); outline: none; transition: all 0.2s; background: white;
-}
-.admin-form input:focus,
-.admin-form select:focus,
-.admin-form textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(25,118,210,0.1); }
-.admin-form textarea { resize: vertical; min-height: 68px; }
-.form-actions { display: flex; gap: 10px; margin-top: 4px; }
-.btn-cancel { background: white; color: var(--text-muted); border: 1.5px solid var(--border); padding: 11px 22px; border-radius: var(--radius-pill); font-family: var(--font-body); font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.2s; }
-.btn-cancel:hover { border-color: var(--red); color: var(--red); }
-.form-status { margin-top: 10px; font-size: 13px; font-weight: 600; }
-.form-status.success { color: #2e7d32; }
-.form-status.error   { color: #c62828; }
-.form-status.loading { color: var(--blue); }
-
-/* ── TABLE ── */
-.table-toolbar { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
-.table-search { padding: 9px 13px; border: 1.5px solid var(--border); border-radius: 8px; font-family: var(--font-body); font-size: 13px; outline: none; min-width: 150px; max-width: 260px; flex: 1; }
-.table-search:focus { border-color: var(--blue); }
-.table-wrap { overflow-x: auto; }
-.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-.data-table th { background: var(--bg); padding: 11px 13px; text-align: left; font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 0.5px; text-transform: uppercase; border-bottom: 1.5px solid var(--border); white-space: nowrap; }
-.data-table td { padding: 12px 13px; border-bottom: 1px solid #f0f0f0; color: var(--text-dark); vertical-align: top; max-width: 180px; word-break: break-word; }
-.data-table td a { color: var(--blue); }
-.data-table tr:hover td { background: #fafbff; }
-.table-empty { text-align: center; color: var(--text-muted); padding: 36px !important; font-style: italic; }
-
-/* ── STATUS BADGES ── */
-.status-badge { display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: 11px; font-weight: 700; white-space: nowrap; }
-.status-present  { background: #e8f5e9; color: #2e7d32; }
-.status-absent   { background: #ffebee; color: #c62828; }
-.status-leave    { background: #fff8e1; color: #f57f17; }
-.status-new      { background: #e3f2fd; color: #1565c0; }
-.status-enrolled { background: #e8f5e9; color: #2e7d32; }
-.status-followup { background: #fff8e1; color: #e65100; }
-.status-noissue  { background: #e8f5e9; color: #2e7d32; }
-.status-issue    { background: #fff8e1; color: #f57f17; }
-.status-repair   { background: #ffebee; color: #c62828; }
-
-/* ── PAYMENT MINI STATS ── */
-.pay-stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-
-/* ── RESPONSIVE ── */
-@media (max-width: 960px) {
-  .sidebar { transform: translateX(-100%); }
-  .sidebar.open { transform: translateX(0); box-shadow: 4px 0 40px rgba(0,0,0,0.25); }
-  .sidebar-close { display: block; }
-  .sidebar-toggle { display: flex; }
-  .dash-main { margin-left: 0; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .overview-grid { grid-template-columns: 1fr; }
-  .admin-form .form-row { grid-template-columns: 1fr; }
-  .pay-stats-row { grid-template-columns: 1fr 1fr; }
-}
-@media (max-width: 600px) {
-  .stats-grid { grid-template-columns: 1fr 1fr; }
-  .dash-section { padding: 16px; gap: 14px; }
-  .form-card { padding: 18px; }
-  .dash-card { padding: 16px; }
-  .login-card { padding: 32px 24px; }
-  .login-title { font-size: 26px; }
-  .pay-stats-row { grid-template-columns: 1fr; }
-  .table-toolbar { gap: 8px; }
+@media(max-width:600px){
+  .stats-grid{grid-template-columns:1fr 1fr;}.dash-section{padding:16px;gap:14px;}
+  .form-card{padding:18px;}.dash-card{padding:16px;}.login-card{padding:32px 24px;}
+  .login-title{font-size:26px;}.pay-stats-row{grid-template-columns:1fr;}.table-toolbar{gap:8px;}
 }
   </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════════════════════════
-     LOGIN SCREEN
-════════════════════════════════════════════════════════════════ -->
 <div id="loginScreen">
   <div class="login-card">
     <div class="login-logo">
@@ -304,9 +156,7 @@ button { cursor: pointer; font-family: inherit; }
     </div>
     <h1 class="login-title">Welcome Back 👋</h1>
     <p class="login-sub-text">Sign in to manage your school's daily data</p>
-
     <div id="loginError" class="alert alert-error" style="display:none;"></div>
-
     <form id="loginForm">
       <div class="form-group login-form">
         <div class="form-group">
@@ -323,17 +173,11 @@ button { cursor: pointer; font-family: inherit; }
         <button type="submit" class="btn btn-primary btn-full">Sign In to Dashboard →</button>
       </div>
     </form>
-
     <p class="login-footer">🔒 Private access only. Not linked from the public website.</p>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════
-     DASHBOARD
-════════════════════════════════════════════════════════════════ -->
 <div id="dashboardScreen">
-
-  <!-- Sidebar -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <div class="logo">
@@ -345,41 +189,22 @@ button { cursor: pointer; font-family: inherit; }
       </div>
       <button class="sidebar-close" id="sidebarClose">✕</button>
     </div>
-
     <nav class="sidebar-nav" id="sidebarNav">
-      <a class="nav-item active" data-section="overview">
-        <span class="nav-icon">📊</span> Overview
-      </a>
-      <a class="nav-item" data-section="students">
-        <span class="nav-icon">🎓</span> Students
-      </a>
-      <a class="nav-item" data-section="attendance">
-        <span class="nav-icon">📅</span> Attendance
-      </a>
-      <a class="nav-item" data-section="payments">
-        <span class="nav-icon">💰</span> Payments
-      </a>
-      <a class="nav-item" data-section="enquiries">
-        <span class="nav-icon">📞</span> Enquiries
-      </a>
-      <a class="nav-item" data-section="fleet">
-        <span class="nav-icon">🚗</span> Fleet / Cars
-      </a>
-      <a class="nav-item" data-section="instructors">
-        <span class="nav-icon">👨‍🏫</span> Instructors
-      </a>
+      <a class="nav-item active" data-section="overview"><span class="nav-icon">📊</span> Overview</a>
+      <a class="nav-item" data-section="students"><span class="nav-icon">🎓</span> Students</a>
+      <a class="nav-item" data-section="attendance"><span class="nav-icon">📅</span> Attendance</a>
+      <a class="nav-item" data-section="payments"><span class="nav-icon">💰</span> Payments</a>
+      <a class="nav-item" data-section="enquiries"><span class="nav-icon">📞</span> Enquiries</a>
+      <a class="nav-item" data-section="fleet"><span class="nav-icon">🚗</span> Fleet / Cars</a>
+      <a class="nav-item" data-section="instructors"><span class="nav-icon">👨‍🏫</span> Instructors</a>
     </nav>
-
     <div class="sidebar-footer">
       <a href="../index.html" target="_blank" class="sidebar-link">🌐 View Public Website</a>
       <button class="btn-logout" id="logoutBtn">🚪 Logout</button>
     </div>
   </aside>
 
-  <!-- Main -->
   <div class="dash-main">
-
-    <!-- Top Bar -->
     <header class="dash-topbar">
       <button class="sidebar-toggle" id="sidebarToggle">☰</button>
       <div class="topbar-right">
@@ -387,39 +212,20 @@ button { cursor: pointer; font-family: inherit; }
         <span class="topbar-user">👋 Sadguru Sainath</span>
       </div>
     </header>
-
     <div id="globalAlert" class="global-alert"></div>
 
-    <!-- ══ OVERVIEW ══ -->
+    <!-- OVERVIEW -->
     <section class="dash-section active" id="section-overview">
       <div class="section-title-bar">
         <h2>📊 Today's Overview</h2>
         <span class="section-sub" id="overviewDate"></span>
       </div>
-
       <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-icon">🎓</div>
-          <div class="stat-num" id="statTotalStudents">—</div>
-          <div class="stat-label">Total Active Students</div>
-        </div>
-        <div class="stat-card stat-green">
-          <div class="stat-icon">💰</div>
-          <div class="stat-num" id="statMonthRevenue">—</div>
-          <div class="stat-label">Revenue This Month</div>
-        </div>
-        <div class="stat-card stat-blue">
-          <div class="stat-icon">📞</div>
-          <div class="stat-num" id="statOpenEnquiries">—</div>
-          <div class="stat-label">Open Enquiries</div>
-        </div>
-        <div class="stat-card stat-orange">
-          <div class="stat-icon">⚠️</div>
-          <div class="stat-num" id="statPendingPayments">—</div>
-          <div class="stat-label">Total Dues</div>
-        </div>
+        <div class="stat-card"><div class="stat-icon">🎓</div><div class="stat-num" id="statTotalStudents">—</div><div class="stat-label">Total Active Students</div></div>
+        <div class="stat-card stat-green"><div class="stat-icon">💰</div><div class="stat-num" id="statMonthRevenue">—</div><div class="stat-label">Revenue This Month</div></div>
+        <div class="stat-card stat-blue"><div class="stat-icon">📞</div><div class="stat-num" id="statOpenEnquiries">—</div><div class="stat-label">Open Enquiries</div></div>
+        <div class="stat-card stat-orange"><div class="stat-icon">⚠️</div><div class="stat-num" id="statPendingPayments">—</div><div class="stat-label">Total Dues</div></div>
       </div>
-
       <div class="overview-grid">
         <div class="dash-card">
           <h3>📋 Quick Actions</h3>
@@ -440,73 +246,44 @@ button { cursor: pointer; font-family: inherit; }
       </div>
     </section>
 
-    <!-- ══ STUDENTS ══ -->
+    <!-- STUDENTS -->
     <section class="dash-section" id="section-students">
       <div class="section-title-bar">
         <h2>🎓 Student Management</h2>
         <button class="btn btn-primary btn-sm" id="openStudentForm">➕ Add New Student</button>
       </div>
-
       <div class="form-card" id="studentFormCard" style="display:none;">
         <h3>New Student Enrollment</h3>
         <form id="studentForm" class="admin-form">
           <div class="form-row">
-            <div class="form-group">
-              <label>Full Name *</label>
-              <input type="text" name="studentName" placeholder="e.g. Priya Sharma" required />
-            </div>
-            <div class="form-group">
-              <label>Phone Number *</label>
-              <input type="tel" name="phone" placeholder="e.g. 9876543210" required />
-            </div>
+            <div class="form-group"><label>Full Name *</label><input type="text" name="studentName" placeholder="e.g. Priya Sharma" required /></div>
+            <div class="form-group"><label>Phone Number *</label><input type="tel" name="phone" placeholder="e.g. 9876543210" required /></div>
           </div>
           <div class="form-row">
-            <div class="form-group">
-              <label>Course Type *</label>
+            <div class="form-group"><label>Course Type *</label>
               <select name="course" required>
                 <option value="">Select Course</option>
-                <option>15-Day Program</option>
-                <option>30-Day Comprehensive</option>
-                <option>Advanced / Highway Driving</option>
-                <option>Learner's License Only</option>
-                <option>License Renewal Assistance</option>
-                <option>Refresher Lessons</option>
+                <option>15-Day Program</option><option>30-Day Comprehensive</option>
+                <option>Advanced / Highway Driving</option><option>Learner's License Only</option>
+                <option>License Renewal Assistance</option><option>Refresher Lessons</option>
               </select>
             </div>
-            <div class="form-group">
-              <label>Assigned Instructor *</label>
+            <div class="form-group"><label>Assigned Instructor *</label>
               <select name="instructor" required>
                 <option value="">Select Instructor</option>
-                <option>Aditya Sir</option>
-                <option>Atish Sir</option>
-                <option>Shyam Sir</option>
+                <option>Aditya Sir</option><option>Atish Sir</option><option>Shyam Sir</option>
               </select>
             </div>
           </div>
           <div class="form-row">
-            <div class="form-group">
-              <label>Start Date *</label>
-              <input type="date" name="startDate" required />
-            </div>
-            <div class="form-group">
-              <label>Total Fee (₹) *</label>
-              <input type="number" name="totalFee" placeholder="e.g. 5000" required />
-            </div>
+            <div class="form-group"><label>Start Date *</label><input type="date" name="startDate" required /></div>
+            <div class="form-group"><label>Total Fee (₹) *</label><input type="number" name="totalFee" placeholder="e.g. 5000" required /></div>
           </div>
           <div class="form-row">
-            <div class="form-group">
-              <label>Fee Paid Today (₹)</label>
-              <input type="number" name="feePaid" placeholder="e.g. 2500" />
-            </div>
-            <div class="form-group">
-              <label>Area / Address</label>
-              <input type="text" name="address" placeholder="e.g. Lohegaon, Vishrantwadi" />
-            </div>
+            <div class="form-group"><label>Fee Paid Today (₹)</label><input type="number" name="feePaid" placeholder="e.g. 2500" /></div>
+            <div class="form-group"><label>Area / Address</label><input type="text" name="address" placeholder="e.g. Lohegaon, Vishrantwadi" /></div>
           </div>
-          <div class="form-group">
-            <label>Notes (Optional)</label>
-            <textarea name="notes" placeholder="Any special notes about this student..."></textarea>
-          </div>
+          <div class="form-group"><label>Notes (Optional)</label><textarea name="notes" placeholder="Any special notes about this student..."></textarea></div>
           <div class="form-actions">
             <button type="submit" class="btn btn-primary">Save to Google Sheets ✓</button>
             <button type="button" class="btn-cancel" id="cancelStudentForm">Cancel</button>
@@ -514,7 +291,6 @@ button { cursor: pointer; font-family: inherit; }
           <div class="form-status" id="studentFormStatus"></div>
         </form>
       </div>
-
       <div class="dash-card">
         <div class="table-toolbar">
           <input type="text" class="table-search" placeholder="🔍 Search students..." id="studentSearch" />
@@ -522,78 +298,46 @@ button { cursor: pointer; font-family: inherit; }
         </div>
         <div class="table-wrap">
           <table class="data-table">
-            <thead>
-              <tr>
-                <th>Name</th><th>Phone</th><th>Course</th><th>Instructor</th>
-                <th>Start Date</th><th>Fee Total</th><th>Fee Paid</th><th>Due</th>
-              </tr>
-            </thead>
-            <tbody id="studentsBody">
-              <tr><td colspan="8" class="table-empty">Loading students...</td></tr>
-            </tbody>
+            <thead><tr><th>Name</th><th>Phone</th><th>Course</th><th>Instructor</th><th>Start Date</th><th>Fee Total</th><th>Fee Paid</th><th>Due</th></tr></thead>
+            <tbody id="studentsBody"><tr><td colspan="8" class="table-empty">Loading students...</td></tr></tbody>
           </table>
         </div>
       </div>
     </section>
 
-    <!-- ══ ATTENDANCE ══ -->
+    <!-- ATTENDANCE -->
     <section class="dash-section" id="section-attendance">
       <div class="section-title-bar">
         <h2>📅 Daily Attendance</h2>
         <button class="btn btn-primary btn-sm" id="openAttendanceForm">➕ Mark Attendance</button>
       </div>
-
       <div class="form-card" id="attendanceFormCard" style="display:none;">
         <h3>Mark Today's Attendance</h3>
         <form id="attendanceForm" class="admin-form">
           <div class="form-row">
-            <div class="form-group">
-              <label>Date *</label>
-              <input type="date" name="date" required />
-            </div>
-            <div class="form-group">
-              <label>Student Name *</label>
-              <input type="text" name="studentName" placeholder="Type student name" required />
-            </div>
+            <div class="form-group"><label>Date *</label><input type="date" name="date" required /></div>
+            <div class="form-group"><label>Student Name *</label><input type="text" name="studentName" placeholder="Type student name" required /></div>
           </div>
           <div class="form-row">
-            <div class="form-group">
-              <label>Instructor *</label>
+            <div class="form-group"><label>Instructor *</label>
               <select name="instructor" required>
-                <option value="">Select</option>
-                <option>Aditya Sir</option>
-                <option>Atish Sir</option>
-                <option>Shyam Sir</option>
+                <option value="">Select</option><option>Aditya Sir</option><option>Atish Sir</option><option>Shyam Sir</option>
               </select>
             </div>
-            <div class="form-group">
-              <label>Status *</label>
+            <div class="form-group"><label>Status *</label>
               <select name="status" required>
                 <option value="">Select</option>
-                <option value="Present">✅ Present</option>
-                <option value="Absent">❌ Absent</option>
-                <option value="Leave">🟡 Leave (Informed)</option>
+                <option value="Present">✅ Present</option><option value="Absent">❌ Absent</option><option value="Leave">🟡 Leave (Informed)</option>
               </select>
             </div>
           </div>
           <div class="form-row">
-            <div class="form-group">
-              <label>Training Day # </label>
-              <input type="number" name="trainingDay" placeholder="e.g. 5" min="1" />
-            </div>
-            <div class="form-group">
-              <label>Car Used</label>
-              <select name="car">
-                <option value="">Select Car</option>
-                <option>Car 1</option>
-                <option>Car 2</option>
-              </select>
+            <div class="form-group"><label>Training Day #</label><input type="number" name="trainingDay" placeholder="e.g. 5" min="1" /></div>
+            <div class="form-group"><label>Car Used</label>
+              <select name="car"><option value="">Select Car</option><option>Car 1</option><option>Car 2</option></select>
             </div>
           </div>
-          <div class="form-group">
-            <label>Session Notes</label>
-            <textarea name="notes" placeholder="e.g. Practiced parking. Good progress."></textarea>
-          </div>
+          <div class="form-group"><label>Session Notes</label><textarea name="notes" placeholder="e.g. Practiced parking. Good progress."></textarea></div>
           <div class="form-actions">
             <button type="submit" class="btn btn-primary">Save Attendance ✓</button>
             <button type="button" class="btn-cancel" id="cancelAttendanceForm">Cancel</button>
@@ -601,7 +345,6 @@ button { cursor: pointer; font-family: inherit; }
           <div class="form-status" id="attendanceFormStatus"></div>
         </form>
       </div>
-
       <div class="dash-card">
         <div class="table-toolbar">
           <input type="date" id="attendanceDateFilter" class="table-search" style="max-width:170px;" />
@@ -609,75 +352,46 @@ button { cursor: pointer; font-family: inherit; }
         </div>
         <div class="table-wrap">
           <table class="data-table">
-            <thead>
-              <tr>
-                <th>Date</th><th>Student</th><th>Instructor</th><th>Status</th>
-                <th>Training Day</th><th>Car</th><th>Notes</th>
-              </tr>
-            </thead>
-            <tbody id="attendanceBody">
-              <tr><td colspan="7" class="table-empty">Loading attendance...</td></tr>
-            </tbody>
+            <thead><tr><th>Date</th><th>Student</th><th>Instructor</th><th>Status</th><th>Training Day</th><th>Car</th><th>Notes</th></tr></thead>
+            <tbody id="attendanceBody"><tr><td colspan="7" class="table-empty">Loading attendance...</td></tr></tbody>
           </table>
         </div>
       </div>
     </section>
 
-    <!-- ══ PAYMENTS ══ -->
+    <!-- PAYMENTS -->
     <section class="dash-section" id="section-payments">
       <div class="section-title-bar">
         <h2>💰 Fee & Payment Tracker</h2>
         <button class="btn btn-primary btn-sm" id="openPaymentForm">➕ Record Payment</button>
       </div>
-
       <div class="form-card" id="paymentFormCard" style="display:none;">
         <h3>Record a Fee Payment</h3>
         <form id="paymentForm" class="admin-form">
           <div class="form-row">
-            <div class="form-group">
-              <label>Date *</label>
-              <input type="date" name="date" required />
-            </div>
-            <div class="form-group">
-              <label>Student Name *</label>
-              <input type="text" name="studentName" placeholder="Type student name" required />
-            </div>
+            <div class="form-group"><label>Date *</label><input type="date" name="date" required /></div>
+            <div class="form-group"><label>Student Name *</label><input type="text" name="studentName" placeholder="Type student name" required /></div>
           </div>
           <div class="form-row">
-            <div class="form-group">
-              <label>Amount Paid (₹) *</label>
-              <input type="number" name="amount" placeholder="e.g. 2500" required />
-            </div>
-            <div class="form-group">
-              <label>Payment Mode *</label>
+            <div class="form-group"><label>Amount Paid (₹) *</label><input type="number" name="amount" placeholder="e.g. 2500" required /></div>
+            <div class="form-group"><label>Payment Mode *</label>
               <select name="paymentMode" required>
                 <option value="">Select</option>
-                <option value="Cash">💵 Cash</option>
-                <option value="UPI / GPay">📱 UPI / GPay</option>
-                <option value="Bank Transfer">🏦 Bank Transfer</option>
-                <option value="Cheque">🧾 Cheque</option>
+                <option value="Cash">💵 Cash</option><option value="UPI / GPay">📱 UPI / GPay</option>
+                <option value="Bank Transfer">🏦 Bank Transfer</option><option value="Cheque">🧾 Cheque</option>
               </select>
             </div>
           </div>
           <div class="form-row">
-            <div class="form-group">
-              <label>Payment Type</label>
+            <div class="form-group"><label>Payment Type</label>
               <select name="paymentType">
-                <option value="Course Fee">Course Fee</option>
-                <option value="License Fee">License Fee</option>
-                <option value="Partial Payment">Partial Payment</option>
-                <option value="Full Payment">Full Payment</option>
+                <option value="Course Fee">Course Fee</option><option value="License Fee">License Fee</option>
+                <option value="Partial Payment">Partial Payment</option><option value="Full Payment">Full Payment</option>
               </select>
             </div>
-            <div class="form-group">
-              <label>Receipt / Reference No.</label>
-              <input type="text" name="receipt" placeholder="Optional" />
-            </div>
+            <div class="form-group"><label>Receipt / Reference No.</label><input type="text" name="receipt" placeholder="Optional" /></div>
           </div>
-          <div class="form-group">
-            <label>Notes</label>
-            <textarea name="notes" placeholder="Any notes about this payment..."></textarea>
-          </div>
+          <div class="form-group"><label>Notes</label><textarea name="notes" placeholder="Any notes about this payment..."></textarea></div>
           <div class="form-actions">
             <button type="submit" class="btn btn-primary">Save Payment ✓</button>
             <button type="button" class="btn-cancel" id="cancelPaymentForm">Cancel</button>
@@ -685,25 +399,11 @@ button { cursor: pointer; font-family: inherit; }
           <div class="form-status" id="paymentFormStatus"></div>
         </form>
       </div>
-
       <div class="pay-stats-row">
-        <div class="stat-card stat-green">
-          <div class="stat-icon">💵</div>
-          <div class="stat-num" id="payStatToday">—</div>
-          <div class="stat-label">Collected Today</div>
-        </div>
-        <div class="stat-card stat-green">
-          <div class="stat-icon">📅</div>
-          <div class="stat-num" id="payStatMonth">—</div>
-          <div class="stat-label">This Month</div>
-        </div>
-        <div class="stat-card stat-orange">
-          <div class="stat-icon">⚠️</div>
-          <div class="stat-num" id="payStatDue">—</div>
-          <div class="stat-label">Total Dues (All Students)</div>
-        </div>
+        <div class="stat-card stat-green"><div class="stat-icon">💵</div><div class="stat-num" id="payStatToday">—</div><div class="stat-label">Collected Today</div></div>
+        <div class="stat-card stat-green"><div class="stat-icon">📅</div><div class="stat-num" id="payStatMonth">—</div><div class="stat-label">This Month</div></div>
+        <div class="stat-card stat-orange"><div class="stat-icon">⚠️</div><div class="stat-num" id="payStatDue">—</div><div class="stat-label">Total Dues (All Students)</div></div>
       </div>
-
       <div class="dash-card">
         <div class="table-toolbar">
           <input type="text" class="table-search" placeholder="🔍 Search payments..." id="paymentSearch" />
@@ -711,85 +411,55 @@ button { cursor: pointer; font-family: inherit; }
         </div>
         <div class="table-wrap">
           <table class="data-table">
-            <thead>
-              <tr><th>Date</th><th>Student</th><th>Amount (₹)</th><th>Mode</th><th>Type</th><th>Receipt</th><th>Notes</th></tr>
-            </thead>
-            <tbody id="paymentsBody">
-              <tr><td colspan="7" class="table-empty">Loading payments...</td></tr>
-            </tbody>
+            <thead><tr><th>Date</th><th>Student</th><th>Amount (₹)</th><th>Mode</th><th>Type</th><th>Receipt</th><th>Notes</th></tr></thead>
+            <tbody id="paymentsBody"><tr><td colspan="7" class="table-empty">Loading payments...</td></tr></tbody>
           </table>
         </div>
       </div>
     </section>
 
-    <!-- ══ ENQUIRIES ══ -->
+    <!-- ENQUIRIES -->
     <section class="dash-section" id="section-enquiries">
       <div class="section-title-bar">
         <h2>📞 Enquiry / Lead Tracker</h2>
         <button class="btn btn-primary btn-sm" id="openEnquiryForm">➕ Log Enquiry</button>
       </div>
-
       <div class="form-card" id="enquiryFormCard" style="display:none;">
         <h3>Log a New Enquiry</h3>
         <form id="enquiryForm" class="admin-form">
           <div class="form-row">
-            <div class="form-group">
-              <label>Date *</label>
-              <input type="date" name="date" required />
-            </div>
-            <div class="form-group">
-              <label>Name *</label>
-              <input type="text" name="name" placeholder="Caller's name" required />
-            </div>
+            <div class="form-group"><label>Date *</label><input type="date" name="date" required /></div>
+            <div class="form-group"><label>Name *</label><input type="text" name="name" placeholder="Caller's name" required /></div>
           </div>
           <div class="form-row">
-            <div class="form-group">
-              <label>Phone Number *</label>
-              <input type="tel" name="phone" placeholder="e.g. 9876543210" required />
-            </div>
-            <div class="form-group">
-              <label>Enquiry Source *</label>
+            <div class="form-group"><label>Phone Number *</label><input type="tel" name="phone" placeholder="e.g. 9876543210" required /></div>
+            <div class="form-group"><label>Enquiry Source *</label>
               <select name="source" required>
                 <option value="">Select</option>
-                <option value="Google Search">🔍 Google Search</option>
-                <option value="Google Maps">📍 Google Maps</option>
-                <option value="WhatsApp">💬 WhatsApp</option>
-                <option value="Referral / Friend">🤝 Referral / Friend</option>
-                <option value="Walk-in">🚶 Walk-in</option>
-                <option value="Website">🌐 Website</option>
-                <option value="Phone Call">📞 Phone Call</option>
-                <option value="Other">Other</option>
+                <option value="Google Search">🔍 Google Search</option><option value="Google Maps">📍 Google Maps</option>
+                <option value="WhatsApp">💬 WhatsApp</option><option value="Referral / Friend">🤝 Referral / Friend</option>
+                <option value="Walk-in">🚶 Walk-in</option><option value="Website">🌐 Website</option>
+                <option value="Phone Call">📞 Phone Call</option><option value="Other">Other</option>
               </select>
             </div>
           </div>
           <div class="form-row">
-            <div class="form-group">
-              <label>Interested In</label>
+            <div class="form-group"><label>Interested In</label>
               <select name="course">
-                <option value="">Not Sure Yet</option>
-                <option>15-Day Program</option>
-                <option>30-Day Comprehensive</option>
-                <option>Learner's License Only</option>
-                <option>Advanced / Highway Driving</option>
-                <option>License Renewal</option>
-                <option>Refresher Lessons</option>
+                <option value="">Not Sure Yet</option><option>15-Day Program</option><option>30-Day Comprehensive</option>
+                <option>Learner's License Only</option><option>Advanced / Highway Driving</option>
+                <option>License Renewal</option><option>Refresher Lessons</option>
               </select>
             </div>
-            <div class="form-group">
-              <label>Follow-up Status *</label>
+            <div class="form-group"><label>Follow-up Status *</label>
               <select name="status" required>
-                <option value="New Lead">🆕 New Lead</option>
-                <option value="Contacted">📞 Contacted</option>
+                <option value="New Lead">🆕 New Lead</option><option value="Contacted">📞 Contacted</option>
                 <option value="Follow-up Required">🔁 Follow-up Required</option>
-                <option value="Enrolled">✅ Enrolled</option>
-                <option value="Not Interested">❌ Not Interested</option>
+                <option value="Enrolled">✅ Enrolled</option><option value="Not Interested">❌ Not Interested</option>
               </select>
             </div>
           </div>
-          <div class="form-group">
-            <label>Notes / What They Asked</label>
-            <textarea name="notes" placeholder="e.g. Asked about fees and morning batch timings..."></textarea>
-          </div>
+          <div class="form-group"><label>Notes / What They Asked</label><textarea name="notes" placeholder="e.g. Asked about fees and morning batch timings..."></textarea></div>
           <div class="form-actions">
             <button type="submit" class="btn btn-primary">Save Enquiry ✓</button>
             <button type="button" class="btn-cancel" id="cancelEnquiryForm">Cancel</button>
@@ -797,100 +467,58 @@ button { cursor: pointer; font-family: inherit; }
           <div class="form-status" id="enquiryFormStatus"></div>
         </form>
       </div>
-
       <div class="dash-card">
         <div class="table-toolbar">
           <select id="enquiryStatusFilter" class="table-search" style="max-width:190px;">
-            <option value="">All Statuses</option>
-            <option>New Lead</option>
-            <option>Contacted</option>
-            <option>Follow-up Required</option>
-            <option>Enrolled</option>
-            <option>Not Interested</option>
+            <option value="">All Statuses</option><option>New Lead</option><option>Contacted</option>
+            <option>Follow-up Required</option><option>Enrolled</option><option>Not Interested</option>
           </select>
           <a id="enquiriesSheetLink" href="#" target="_blank" class="btn btn-outline btn-sm">📊 Open Google Sheets</a>
         </div>
         <div class="table-wrap">
           <table class="data-table">
-            <thead>
-              <tr><th>Date</th><th>Name</th><th>Phone</th><th>Source</th><th>Course Interest</th><th>Status</th><th>Notes</th></tr>
-            </thead>
-            <tbody id="enquiriesBody">
-              <tr><td colspan="7" class="table-empty">Loading enquiries...</td></tr>
-            </tbody>
+            <thead><tr><th>Date</th><th>Name</th><th>Phone</th><th>Source</th><th>Course Interest</th><th>Status</th><th>Notes</th></tr></thead>
+            <tbody id="enquiriesBody"><tr><td colspan="7" class="table-empty">Loading enquiries...</td></tr></tbody>
           </table>
         </div>
       </div>
     </section>
 
-    <!-- ══ FLEET ══ -->
+    <!-- FLEET -->
     <section class="dash-section" id="section-fleet">
       <div class="section-title-bar">
         <h2>🚗 Fleet & Car Log</h2>
         <button class="btn btn-primary btn-sm" id="openFleetForm">➕ Add Car Log</button>
       </div>
-
       <div class="form-card" id="fleetFormCard" style="display:none;">
         <h3>Daily Car Log Entry</h3>
         <form id="fleetForm" class="admin-form">
           <div class="form-row">
-            <div class="form-group">
-              <label>Date *</label>
-              <input type="date" name="date" required />
-            </div>
-            <div class="form-group">
-              <label>Car Registration *</label>
-              <select name="car" required>
-                <option value="">Select Car</option>
-                <option value="Car 1">Car 1</option>
-                <option value="Car 2">Car 2</option>
-              </select>
+            <div class="form-group"><label>Date *</label><input type="date" name="date" required /></div>
+            <div class="form-group"><label>Car Registration *</label>
+              <select name="car" required><option value="">Select Car</option><option value="Car 1">Car 1</option><option value="Car 2">Car 2</option></select>
             </div>
           </div>
           <div class="form-row">
-            <div class="form-group">
-              <label>Used By Instructor *</label>
-              <select name="instructor" required>
-                <option value="">Select</option>
-                <option>Aditya Sir</option>
-                <option>Atish Sir</option>
-                <option>Shyam Sir</option>
-              </select>
+            <div class="form-group"><label>Used By Instructor *</label>
+              <select name="instructor" required><option value="">Select</option><option>Aditya Sir</option><option>Atish Sir</option><option>Shyam Sir</option></select>
             </div>
-            <div class="form-group">
-              <label>Hours Driven Today</label>
-              <input type="number" name="hours" placeholder="e.g. 4" min="0" max="12" step="0.5" />
-            </div>
+            <div class="form-group"><label>Hours Driven Today</label><input type="number" name="hours" placeholder="e.g. 4" min="0" max="12" step="0.5" /></div>
           </div>
           <div class="form-row">
-            <div class="form-group">
-              <label>Fuel Added (Litres)</label>
-              <input type="number" name="fuel" placeholder="e.g. 5" step="0.5" />
-            </div>
-            <div class="form-group">
-              <label>Fuel Cost (₹)</label>
-              <input type="number" name="fuelCost" placeholder="e.g. 500" />
-            </div>
+            <div class="form-group"><label>Fuel Added (Litres)</label><input type="number" name="fuel" placeholder="e.g. 5" step="0.5" /></div>
+            <div class="form-group"><label>Fuel Cost (₹)</label><input type="number" name="fuelCost" placeholder="e.g. 500" /></div>
           </div>
           <div class="form-row">
-            <div class="form-group">
-              <label>Any Issue / Repair Needed?</label>
+            <div class="form-group"><label>Any Issue / Repair Needed?</label>
               <select name="issue">
-                <option value="No Issues">✅ No Issues</option>
-                <option value="Minor Issue">⚠️ Minor Issue</option>
-                <option value="Needs Service">🔧 Needs Service</option>
-                <option value="Sent for Repair">🔴 Sent for Repair</option>
+                <option value="No Issues">✅ No Issues</option><option value="Minor Issue">⚠️ Minor Issue</option>
+                <option value="Needs Service">🔧 Needs Service</option><option value="Sent for Repair">🔴 Sent for Repair</option>
               </select>
             </div>
-            <div class="form-group">
-              <label>Odometer Reading (km)</label>
-              <input type="number" name="odometer" placeholder="e.g. 45230" />
-            </div>
+            <div class="form-group"><label>Odometer Reading (km)</label><input type="number" name="odometer" placeholder="e.g. 45230" /></div>
           </div>
-          <div class="form-group">
-            <label>Notes</label>
-            <textarea name="notes" placeholder="Any notes about the car today..."></textarea>
-          </div>
+          <div class="form-group"><label>Notes</label><textarea name="notes" placeholder="Any notes about the car today..."></textarea></div>
           <div class="form-actions">
             <button type="submit" class="btn btn-primary">Save Car Log ✓</button>
             <button type="button" class="btn-cancel" id="cancelFleetForm">Cancel</button>
@@ -898,68 +526,42 @@ button { cursor: pointer; font-family: inherit; }
           <div class="form-status" id="fleetFormStatus"></div>
         </form>
       </div>
-
       <div class="dash-card">
         <div class="table-toolbar">
           <select id="carFilter" class="table-search" style="max-width:190px;">
-            <option value="">All Cars</option>
-            <option>Car 1</option>
-            <option>Car 2</option>
+            <option value="">All Cars</option><option>Car 1</option><option>Car 2</option>
           </select>
           <a id="fleetSheetLink" href="#" target="_blank" class="btn btn-outline btn-sm">📊 Open Google Sheets</a>
         </div>
         <div class="table-wrap">
           <table class="data-table">
-            <thead>
-              <tr><th>Date</th><th>Car</th><th>Instructor</th><th>Hours</th><th>Fuel (L)</th><th>Fuel Cost</th><th>Issue</th><th>Odometer</th></tr>
-            </thead>
-            <tbody id="fleetBody">
-              <tr><td colspan="8" class="table-empty">Loading fleet data...</td></tr>
-            </tbody>
+            <thead><tr><th>Date</th><th>Car</th><th>Instructor</th><th>Hours</th><th>Fuel (L)</th><th>Fuel Cost</th><th>Issue</th><th>Odometer</th></tr></thead>
+            <tbody id="fleetBody"><tr><td colspan="8" class="table-empty">Loading fleet data...</td></tr></tbody>
           </table>
         </div>
       </div>
     </section>
 
-    <!-- ══ INSTRUCTORS ══ -->
+    <!-- INSTRUCTORS -->
     <section class="dash-section" id="section-instructors">
       <div class="section-title-bar">
         <h2>👨‍🏫 Instructor Activity Log</h2>
         <button class="btn btn-primary btn-sm" id="openInstructorForm">➕ Add Entry</button>
       </div>
-
       <div class="form-card" id="instructorFormCard" style="display:none;">
         <h3>Log Instructor Activity</h3>
         <form id="instructorForm" class="admin-form">
           <div class="form-row">
-            <div class="form-group">
-              <label>Date *</label>
-              <input type="date" name="date" required />
-            </div>
-            <div class="form-group">
-              <label>Instructor *</label>
-              <select name="instructor" required>
-                <option value="">Select</option>
-                <option>Aditya Sir</option>
-                <option>Atish Sir</option>
-                <option>Shyam Sir</option>
-              </select>
+            <div class="form-group"><label>Date *</label><input type="date" name="date" required /></div>
+            <div class="form-group"><label>Instructor *</label>
+              <select name="instructor" required><option value="">Select</option><option>Aditya Sir</option><option>Atish Sir</option><option>Shyam Sir</option></select>
             </div>
           </div>
           <div class="form-row">
-            <div class="form-group">
-              <label>Students Handled Today</label>
-              <input type="number" name="studentsCount" placeholder="e.g. 4" min="0" />
-            </div>
-            <div class="form-group">
-              <label>Hours Worked</label>
-              <input type="number" name="hours" placeholder="e.g. 6" min="0" max="12" step="0.5" />
-            </div>
+            <div class="form-group"><label>Students Handled Today</label><input type="number" name="studentsCount" placeholder="e.g. 4" min="0" /></div>
+            <div class="form-group"><label>Hours Worked</label><input type="number" name="hours" placeholder="e.g. 6" min="0" max="12" step="0.5" /></div>
           </div>
-          <div class="form-group">
-            <label>Session Summary</label>
-            <textarea name="notes" placeholder="e.g. Handled 3 beginner students, 1 refresher session. All sessions completed."></textarea>
-          </div>
+          <div class="form-group"><label>Session Summary</label><textarea name="notes" placeholder="e.g. Handled 3 beginner students, 1 refresher session."></textarea></div>
           <div class="form-actions">
             <button type="submit" class="btn btn-primary">Save Activity ✓</button>
             <button type="button" class="btn-cancel" id="cancelInstructorForm">Cancel</button>
@@ -967,208 +569,143 @@ button { cursor: pointer; font-family: inherit; }
           <div class="form-status" id="instructorFormStatus"></div>
         </form>
       </div>
-
       <div class="dash-card">
         <div class="table-toolbar">
           <select id="instructorFilter" class="table-search" style="max-width:190px;">
-            <option value="">All Instructors</option>
-            <option>Aditya Sir</option>
-            <option>Atish Sir</option>
-            <option>Shyam Sir</option>
+            <option value="">All Instructors</option><option>Aditya Sir</option><option>Atish Sir</option><option>Shyam Sir</option>
           </select>
           <a id="instructorsSheetLink" href="#" target="_blank" class="btn btn-outline btn-sm">📊 Open Google Sheets</a>
         </div>
         <div class="table-wrap">
           <table class="data-table">
-            <thead>
-              <tr><th>Date</th><th>Instructor</th><th>Students Handled</th><th>Hours Worked</th><th>Session Summary</th></tr>
-            </thead>
-            <tbody id="instructorsBody">
-              <tr><td colspan="5" class="table-empty">Loading instructor data...</td></tr>
-            </tbody>
+            <thead><tr><th>Date</th><th>Instructor</th><th>Students Handled</th><th>Hours Worked</th><th>Session Summary</th></tr></thead>
+            <tbody id="instructorsBody"><tr><td colspan="5" class="table-empty">Loading instructor data...</td></tr></tbody>
           </table>
         </div>
       </div>
     </section>
 
-  </div><!-- /dash-main -->
-</div><!-- /dashboardScreen -->
+  </div>
+</div>
 
 <script>
 // ================================================================
-// ⚙️  CONFIGURATION — FILL IN AFTER SETUP
+// ⚙️  CONFIGURATION
 // ================================================================
 const CONFIG = {
   SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbxqcczyyWk6Vw7I4MC98jYyS4ysBrptCBDz5wkku9jkbTDZez7bSH_aTb8tRYxdiP5E/exec',
   SHEET_ID:   '1ItAYoLl-27oj7BeJD0FtxW6Ld1G7APxoy7WFY9AmNqI',
+  // ↓ Set to true ONLY if you want to see sample data instead of real Google Sheets data
+  DEMO_MODE:  false,
 };
 
-// Admin credentials (change before going live)
 const CREDS = { username: 'sainathadmin', password: 'sainath@2026' };
 const SESSION_KEY = 'sainath_admin_session';
-
-// Sheet names
 const SHEETS = {
-  students:    'Students',
-  attendance:  'Attendance',
-  payments:    'Payments',
-  enquiries:   'Enquiries',
-  fleet:       'Fleet',
-  instructors: 'Instructors',
+  students:'Students', attendance:'Attendance', payments:'Payments',
+  enquiries:'Enquiries', fleet:'Fleet', instructors:'Instructors',
 };
 
 // ================================================================
 // AUTH
 // ================================================================
-function isLoggedIn() {
-  try {
-    const s = JSON.parse(localStorage.getItem(SESSION_KEY) || '{}');
-    return Date.now() < (s.expiry || 0);
-  } catch { return false; }
-}
-function createSession() {
-  localStorage.setItem(SESSION_KEY, JSON.stringify({ expiry: Date.now() + 8 * 3600000 }));
-}
-function destroySession() {
-  localStorage.removeItem(SESSION_KEY);
-}
+function isLoggedIn(){try{const s=JSON.parse(localStorage.getItem(SESSION_KEY)||'{}');return Date.now()<(s.expiry||0);}catch{return false;}}
+function createSession(){localStorage.setItem(SESSION_KEY,JSON.stringify({expiry:Date.now()+8*3600000}));}
+function destroySession(){localStorage.removeItem(SESSION_KEY);}
 
 // ================================================================
 // INIT
 // ================================================================
-window.addEventListener('DOMContentLoaded', () => {
-  if (isLoggedIn()) showDashboard();
-
-  // Toggle password visibility
-  document.getElementById('togglePass').addEventListener('click', () => {
-    const p = document.getElementById('password');
-    p.type = p.type === 'password' ? 'text' : 'password';
+window.addEventListener('DOMContentLoaded',()=>{
+  if(isLoggedIn()) showDashboard();
+  document.getElementById('togglePass').addEventListener('click',()=>{
+    const p=document.getElementById('password');p.type=p.type==='password'?'text':'password';
   });
-
-  // Login form
-  document.getElementById('loginForm').addEventListener('submit', e => {
+  document.getElementById('loginForm').addEventListener('submit',e=>{
     e.preventDefault();
-    const u = document.getElementById('username').value.trim();
-    const p = document.getElementById('password').value;
-    const err = document.getElementById('loginError');
-    if (u === CREDS.username && p === CREDS.password) {
-      createSession();
-      showDashboard();
-    } else {
-      err.textContent = '❌ Incorrect username or password.';
-      err.style.display = 'block';
-      setTimeout(() => err.style.display = 'none', 4000);
-    }
+    const u=document.getElementById('username').value.trim();
+    const p=document.getElementById('password').value;
+    const err=document.getElementById('loginError');
+    if(u===CREDS.username&&p===CREDS.password){createSession();showDashboard();}
+    else{err.textContent='❌ Incorrect username or password.';err.style.display='block';setTimeout(()=>err.style.display='none',4000);}
   });
 });
 
-function showDashboard() {
-  document.getElementById('loginScreen').style.display = 'none';
-  document.getElementById('dashboardScreen').style.display = 'block';
+function showDashboard(){
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('dashboardScreen').style.display='block';
   initDashboard();
 }
 
 // ================================================================
 // DASHBOARD INIT
 // ================================================================
-function initDashboard() {
-  // Date
-  const dateStr = new Date().toLocaleDateString('en-IN', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
-  const dashDate = document.getElementById('dashDate');
-  const overviewDate = document.getElementById('overviewDate');
-  if (dashDate)    dashDate.textContent    = dateStr;
-  if (overviewDate) overviewDate.textContent = dateStr;
+function initDashboard(){
+  const dateStr=new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  setEl('dashDate',dateStr); setEl('overviewDate',dateStr);
 
   // Google Sheets links
-  if (CONFIG.SHEET_ID !== '1ItAYoLl-27oj7BeJD0FtxW6Ld1G7APxoy7WFY9AmNqI') {
-    const base = `https://docs.google.com/spreadsheets/d/${CONFIG.SHEET_ID}/edit#gid=`;
-    ['students','attendance','payments','enquiries','fleet','instructors'].forEach((s, i) => {
-      const el = document.getElementById(s + 'SheetLink');
-      if (el) el.href = base + i;
-    });
-  }
-
-  // Sidebar navigation
-  document.querySelectorAll('#sidebarNav .nav-item').forEach(item => {
-    item.addEventListener('click', e => {
-      e.preventDefault();
-      switchSection(item.dataset.section);
-    });
+  const base=`https://docs.google.com/spreadsheets/d/${CONFIG.SHEET_ID}/edit#gid=`;
+  ['students','attendance','payments','enquiries','fleet','instructors'].forEach((s,i)=>{
+    const el=document.getElementById(s+'SheetLink');
+    if(el) el.href=base+i;
   });
 
-  // Quick action buttons
-  document.querySelectorAll('.quick-btn').forEach(btn => {
-    btn.addEventListener('click', () => switchSection(btn.dataset.goto));
+  document.querySelectorAll('#sidebarNav .nav-item').forEach(item=>{
+    item.addEventListener('click',e=>{e.preventDefault();switchSection(item.dataset.section);});
   });
-
-  // Sidebar mobile toggle
-  document.getElementById('sidebarToggle').addEventListener('click', () => {
-    document.getElementById('sidebar').classList.toggle('open');
+  document.querySelectorAll('.quick-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>switchSection(btn.dataset.goto));
   });
-  document.getElementById('sidebarClose').addEventListener('click', () => {
-    document.getElementById('sidebar').classList.remove('open');
-  });
-
-  // Logout
-  document.getElementById('logoutBtn').addEventListener('click', () => {
+  document.getElementById('sidebarToggle').addEventListener('click',()=>document.getElementById('sidebar').classList.toggle('open'));
+  document.getElementById('sidebarClose').addEventListener('click',()=>document.getElementById('sidebar').classList.remove('open'));
+  document.getElementById('logoutBtn').addEventListener('click',()=>{
     destroySession();
-    document.getElementById('dashboardScreen').style.display = 'none';
-    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('dashboardScreen').style.display='none';
+    document.getElementById('loginScreen').style.display='flex';
   });
 
-  // Setup all forms
-  setupForm('studentForm',    SHEETS.students,    'studentFormStatus',    'openStudentForm',    'cancelStudentForm',    'studentFormCard',    f => {
-    const d = formData(f);
-    return [d.studentName, d.phone, d.course, d.instructor, d.startDate, d.totalFee, d.feePaid || '0', d.address, d.notes];
-  }, '🎓', f => `New student: ${formData(f).studentName}`);
+  if(CONFIG.DEMO_MODE){
+    showGlobalAlert('⚙️ Demo Mode is ON — showing sample data. Set CONFIG.DEMO_MODE = false to use your real Google Sheet.','error');
+  }
 
-  setupForm('attendanceForm', SHEETS.attendance,  'attendanceFormStatus', 'openAttendanceForm', 'cancelAttendanceForm', 'attendanceFormCard', f => {
-    const d = formData(f);
-    return [d.date, d.studentName, d.instructor, d.status, d.trainingDay, d.car, d.notes];
-  }, '📅', f => `Attendance: ${formData(f).studentName}`);
+  setupForm('studentForm',SHEETS.students,'studentFormStatus','openStudentForm','cancelStudentForm','studentFormCard',f=>{
+    const d=formData(f);return[d.studentName,d.phone,d.course,d.instructor,d.startDate,d.totalFee,d.feePaid||'0',d.address,d.notes];
+  },'🎓',f=>`New student: ${formData(f).studentName}`);
 
-  setupForm('paymentForm',    SHEETS.payments,    'paymentFormStatus',    'openPaymentForm',    'cancelPaymentForm',    'paymentFormCard',    f => {
-    const d = formData(f);
-    return [d.date, d.studentName, d.amount, d.paymentMode, d.paymentType, d.receipt, d.notes];
-  }, '💰', f => { const d = formData(f); return `Payment ₹${d.amount} from ${d.studentName}`; });
+  setupForm('attendanceForm',SHEETS.attendance,'attendanceFormStatus','openAttendanceForm','cancelAttendanceForm','attendanceFormCard',f=>{
+    const d=formData(f);return[d.date,d.studentName,d.instructor,d.status,d.trainingDay,d.car,d.notes];
+  },'📅',f=>`Attendance: ${formData(f).studentName}`);
 
-  setupForm('enquiryForm',    SHEETS.enquiries,   'enquiryFormStatus',    'openEnquiryForm',    'cancelEnquiryForm',    'enquiryFormCard',    f => {
-    const d = formData(f);
-    return [d.date, d.name, d.phone, d.source, d.course, d.status, d.notes];
-  }, '📞', f => `Enquiry from ${formData(f).name}`);
+  setupForm('paymentForm',SHEETS.payments,'paymentFormStatus','openPaymentForm','cancelPaymentForm','paymentFormCard',f=>{
+    const d=formData(f);return[d.date,d.studentName,d.amount,d.paymentMode,d.paymentType,d.receipt,d.notes];
+  },'💰',f=>{const d=formData(f);return`Payment ₹${d.amount} from ${d.studentName}`;});
 
-  setupForm('fleetForm',      SHEETS.fleet,       'fleetFormStatus',      'openFleetForm',      'cancelFleetForm',      'fleetFormCard',      f => {
-    const d = formData(f);
-    return [d.date, d.car, d.instructor, d.hours, d.fuel, d.fuelCost, d.issue, d.odometer, d.notes];
-  }, '🚗', f => `Car log: ${formData(f).car}`);
+  setupForm('enquiryForm',SHEETS.enquiries,'enquiryFormStatus','openEnquiryForm','cancelEnquiryForm','enquiryFormCard',f=>{
+    const d=formData(f);return[d.date,d.name,d.phone,d.source,d.course,d.status,d.notes];
+  },'📞',f=>`Enquiry from ${formData(f).name}`);
 
-  setupForm('instructorForm', SHEETS.instructors, 'instructorFormStatus', 'openInstructorForm', 'cancelInstructorForm', 'instructorFormCard', f => {
-    const d = formData(f);
-    return [d.date, d.instructor, d.studentsCount, d.hours, d.notes];
-  }, '👨‍🏫', f => `Activity: ${formData(f).instructor}`);
+  setupForm('fleetForm',SHEETS.fleet,'fleetFormStatus','openFleetForm','cancelFleetForm','fleetFormCard',f=>{
+    const d=formData(f);return[d.date,d.car,d.instructor,d.hours,d.fuel,d.fuelCost,d.issue,d.odometer,d.notes];
+  },'🚗',f=>`Car log: ${formData(f).car}`);
 
-  // Filters / search
-  setupSearch('studentSearch', 'studentsBody', [0,1,2,3]);
-  setupSearch('paymentSearch', 'paymentsBody', [0,1,3,4]);
-  setupSelectFilter('enquiryStatusFilter', 'enquiriesBody', 5);
-  setupSelectFilter('carFilter', 'fleetBody', 1);
-  setupSelectFilter('instructorFilter', 'instructorsBody', 1);
+  setupForm('instructorForm',SHEETS.instructors,'instructorFormStatus','openInstructorForm','cancelInstructorForm','instructorFormCard',f=>{
+    const d=formData(f);return[d.date,d.instructor,d.studentsCount,d.hours,d.notes];
+  },'👨‍🏫',f=>`Activity: ${formData(f).instructor}`);
 
-  // Date filter for attendance
-  const attDateFilter = document.getElementById('attendanceDateFilter');
-  if (attDateFilter) {
-    attDateFilter.addEventListener('change', () => {
-      const val = attDateFilter.value;
-      document.querySelectorAll('#attendanceBody tr').forEach(row => {
-        row.style.display = (!val || (row.cells[0]?.textContent || '').includes(val)) ? '' : 'none';
-      });
+  setupSearch('studentSearch','studentsBody',[0,1,2,3]);
+  setupSearch('paymentSearch','paymentsBody',[0,1,3,4]);
+  setupSelectFilter('enquiryStatusFilter','enquiriesBody',5);
+  setupSelectFilter('carFilter','fleetBody',1);
+  setupSelectFilter('instructorFilter','instructorsBody',1);
+
+  const adf=document.getElementById('attendanceDateFilter');
+  if(adf){adf.addEventListener('change',()=>{
+    const val=adf.value;
+    document.querySelectorAll('#attendanceBody tr').forEach(row=>{
+      row.style.display=(!val||(row.cells[0]?.textContent||'').includes(val))?'':'none';
     });
-  }
-
-  // Demo mode banner
-  if (CONFIG.SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbxqcczyyWk6Vw7I4MC98jYyS4ysBrptCBDz5wkku9jkbTDZez7bSH_aTb8tRYxdiP5E/exec') {
-    showGlobalAlert('⚙️  Demo Mode: Showing sample data. Paste your Google Apps Script URL in admin.html CONFIG to connect your real Google Sheet.', 'error');
-  }
+  });}
 
   switchSection('overview');
 }
@@ -1176,267 +713,213 @@ function initDashboard() {
 // ================================================================
 // NAVIGATION
 // ================================================================
-const cache = {};
-
-function switchSection(id) {
-  document.querySelectorAll('.dash-section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('#sidebarNav .nav-item').forEach(n => n.classList.remove('active'));
-  const section = document.getElementById('section-' + id);
-  if (section) section.classList.add('active');
-  const nav = document.querySelector(`#sidebarNav .nav-item[data-section="${id}"]`);
-  if (nav) nav.classList.add('active');
+const cache={};
+function switchSection(id){
+  document.querySelectorAll('.dash-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('#sidebarNav .nav-item').forEach(n=>n.classList.remove('active'));
+  const section=document.getElementById('section-'+id);
+  if(section) section.classList.add('active');
+  const nav=document.querySelector(`#sidebarNav .nav-item[data-section="${id}"]`);
+  if(nav) nav.classList.add('active');
   document.getElementById('sidebar').classList.remove('open');
-
-  const loaders = {
-    overview:    () => { loadStudents(); loadPayments(); loadEnquiries(); },
-    students:    loadStudents,
-    attendance:  loadAttendance,
-    payments:    loadPayments,
-    enquiries:   loadEnquiries,
-    fleet:       loadFleet,
-    instructors: loadInstructors,
+  const loaders={
+    overview:()=>{loadStudents();loadPayments();loadEnquiries();},
+    students:loadStudents,attendance:loadAttendance,payments:loadPayments,
+    enquiries:loadEnquiries,fleet:loadFleet,instructors:loadInstructors,
   };
-  if (loaders[id]) loaders[id]();
+  if(loaders[id]) loaders[id]();
 }
 
 // ================================================================
-// API
+// API  — real Google Sheets (DEMO_MODE:false) or sample data (DEMO_MODE:true)
 // ================================================================
-async function sendToSheet(sheetName, data) {
-  if (CONFIG.SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbxqcczyyWk6Vw7I4MC98jYyS4ysBrptCBDz5wkku9jkbTDZez7bSH_aTb8tRYxdiP5E/exec') {
-    return { success: true, demo: true };
-  }
-  const res = await fetch(CONFIG.SCRIPT_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ sheet: sheetName, action: 'append', data }),
+async function sendToSheet(sheetName,data){
+  if(CONFIG.DEMO_MODE) return{success:true,demo:true};
+  const res=await fetch(CONFIG.SCRIPT_URL,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({sheet:sheetName,action:'append',data}),
   });
   return await res.json();
 }
 
-async function readSheet(sheetName) {
-  if (CONFIG.SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbxqcczyyWk6Vw7I4MC98jYyS4ysBrptCBDz5wkku9jkbTDZez7bSH_aTb8tRYxdiP5E/exec') return getSampleData(sheetName);
-  if (cache[sheetName] && cache[sheetName].time > Date.now() - 60000) return cache[sheetName].data;
-  const url = `${CONFIG.SCRIPT_URL}?sheet=${sheetName}&action=read`;
-  const res = await fetch(url);
-  const result = await res.json();
-  const rows = result.data || [];
-  cache[sheetName] = { data: rows, time: Date.now() };
+async function readSheet(sheetName){
+  if(CONFIG.DEMO_MODE) return getSampleData(sheetName);
+  if(cache[sheetName]&&cache[sheetName].time>Date.now()-60000) return cache[sheetName].data;
+  const url=`${CONFIG.SCRIPT_URL}?sheet=${sheetName}&action=read`;
+  const res=await fetch(url);
+  const result=await res.json();
+  const rows=result.data||[];
+  cache[sheetName]={data:rows,time:Date.now()};
   return rows;
 }
 
 // ================================================================
-// SAMPLE DATA (Demo Mode)
+// SAMPLE DATA  (only used when DEMO_MODE:true)
 // ================================================================
-function getSampleData(sheet) {
-  const t = todayStr();
-  const samples = {
-    Students: [
-      ['Priya Sharma',  '9876543210', '30-Day Comprehensive', 'Aditya Sir', '2026-02-01', '5000', '2500', 'Lohegaon', 'Enthusiastic learner'],
-      ['Rahul More',    '9123456789', 'Learner\'s License Only', 'Atish Sir', '2026-02-05', '2000', '2000', 'Alandi Road', 'License done, paid full'],
-      ['Sneha Kulkarni','9988776655', '15-Day Program', 'Shyam Sir', '2026-02-10', '3000', '1500', 'Vishrantwadi', 'Building confidence'],
+function getSampleData(sheet){
+  const t=todayStr();
+  const samples={
+    Students:[
+      ['Priya Sharma','9876543210','30-Day Comprehensive','Aditya Sir','2026-02-01','5000','2500','Lohegaon','Enthusiastic learner'],
+      ['Rahul More','9123456789',"Learner's License Only",'Atish Sir','2026-02-05','2000','2000','Alandi Road','License done, paid full'],
+      ['Sneha Kulkarni','9988776655','15-Day Program','Shyam Sir','2026-02-10','3000','1500','Vishrantwadi','Building confidence'],
     ],
-    Attendance: [
-      [t, 'Priya Sharma',   'Aditya Sir', 'Present', '12', 'Car 1', 'Great parking session'],
-      [t, 'Sneha Kulkarni', 'Shyam Sir',  'Present', '8',  'Car 2', 'Highway practice'],
-      [t, 'Rahul More',     'Atish Sir',  'Absent',  '—',  '—',            'Informed in advance'],
+    Attendance:[
+      [t,'Priya Sharma','Aditya Sir','Present','12','Car 1','Great parking session'],
+      [t,'Sneha Kulkarni','Shyam Sir','Present','8','Car 2','Highway practice'],
+      [t,'Rahul More','Atish Sir','Absent','—','—','Informed in advance'],
     ],
-    Payments: [
-      [t,            'Priya Sharma',   '2500', 'Cash',      'Partial Payment', 'RCP001', '1st installment'],
-      ['2026-02-05', 'Rahul More',     '2000', 'UPI / GPay','Full Payment',    'RCP002', 'GPay - paid full'],
-      ['2026-02-10', 'Sneha Kulkarni', '1500', 'Cash',      'Partial Payment', 'RCP003', 'Balance next week'],
+    Payments:[
+      [t,'Priya Sharma','2500','Cash','Partial Payment','RCP001','1st installment'],
+      ['2026-02-05','Rahul More','2000','UPI / GPay','Full Payment','RCP002','GPay - paid full'],
+      ['2026-02-10','Sneha Kulkarni','1500','Cash','Partial Payment','RCP003','Balance next week'],
     ],
-    Enquiries: [
-      [t,            'Anita Desai',  '9876501234', 'Google Maps',     '30-Day Comprehensive',   'New Lead',           'Called 10am, morning batch interest'],
-      ['2026-02-20', 'Vikram Patil', '9812345678', 'Referral / Friend','Learner\'s License Only','Follow-up Required', 'Wants fee details'],
-      ['2026-02-18', 'Meera Joshi',  '9900112233', 'Website',         '15-Day Program',          'Enrolled',           'Enrolled same day!'],
+    Enquiries:[
+      [t,'Anita Desai','9876501234','Google Maps','30-Day Comprehensive','New Lead','Called 10am, morning batch interest'],
+      ['2026-02-20','Vikram Patil','9812345678','Referral / Friend',"Learner's License Only",'Follow-up Required','Wants fee details'],
+      ['2026-02-18','Meera Joshi','9900112233','Website','15-Day Program','Enrolled','Enrolled same day!'],
     ],
-    Fleet: [
-      [t,            'Car 1', 'Aditya Sir', '4',   '5', '500', 'No Issues',   '45230', ''],
-      [t,            'Car 2', 'Shyam Sir',  '3.5', '0', '0',   'No Issues',   '32100', 'No fuel needed'],
-      ['2026-02-22', 'Car 1', 'Atish Sir',  '6',   '8', '800', 'Minor Issue', '45180', 'Slight brake noise'],
+    Fleet:[
+      [t,'Car 1','Aditya Sir','4','5','500','No Issues','45230',''],
+      [t,'Car 2','Shyam Sir','3.5','0','0','No Issues','32100','No fuel needed'],
+      ['2026-02-22','Car 1','Atish Sir','6','8','800','Minor Issue','45180','Slight brake noise'],
     ],
-    Instructors: [
-      [t, 'Aditya Sir', '3', '5',  'Handled 3 beginner students. Day 5 session completed.'],
-      [t, 'Atish Sir',  '2', '4',  '2 students, refresher and beginner. Both sessions good.'],
-      [t, 'Shyam Sir',  '4', '6',  '4 students including highway session. Very productive.'],
+    Instructors:[
+      [t,'Aditya Sir','3','5','Handled 3 beginner students. Day 5 session completed.'],
+      [t,'Atish Sir','2','4','2 students, refresher and beginner. Both sessions good.'],
+      [t,'Shyam Sir','4','6','4 students including highway session. Very productive.'],
     ],
   };
-  return samples[sheet] || [];
+  return samples[sheet]||[];
 }
 
 // ================================================================
 // TABLE LOADERS
 // ================================================================
-async function loadStudents() {
-  const rows = await readSheet(SHEETS.students);
-  const el = document.getElementById('studentsBody');
-  if (!el) return;
-  const statEl = document.getElementById('statTotalStudents');
-  if (statEl) statEl.textContent = rows.length;
-
-  if (!rows.length) { el.innerHTML = '<tr><td colspan="8" class="table-empty">No students yet.</td></tr>'; return; }
-
-  let totalDue = 0;
-  el.innerHTML = rows.map(r => {
-    const total = +r[5] || 0, paid = +r[6] || 0, due = total - paid;
-    totalDue += due;
-    return `<tr>
+async function loadStudents(){
+  const rows=await readSheet(SHEETS.students);
+  const el=document.getElementById('studentsBody');
+  if(!el) return;
+  setEl('statTotalStudents',rows.length);
+  if(!rows.length){el.innerHTML='<tr><td colspan="8" class="table-empty">No students yet.</td></tr>';return;}
+  let totalDue=0;
+  el.innerHTML=rows.map(r=>{
+    const total=+r[5]||0,paid=+r[6]||0,due=total-paid;totalDue+=due;
+    return`<tr>
       <td><strong>${r[0]||'—'}</strong></td>
       <td><a href="tel:${r[1]}">${r[1]||'—'}</a></td>
-      <td>${r[2]||'—'}</td>
-      <td>${r[3]||'—'}</td>
-      <td>${fmtDate(r[4])}</td>
+      <td>${r[2]||'—'}</td><td>${r[3]||'—'}</td><td>${fmtDate(r[4])}</td>
       <td>${fmtINR(r[5])}</td>
       <td style="color:#2e7d32;font-weight:700;">${fmtINR(r[6])}</td>
       <td style="color:${due>0?'#c62828':'#2e7d32'};font-weight:700;">${fmtINR(due)}</td>
     </tr>`;
   }).join('');
-  const pdEl = document.getElementById('statPendingPayments');
-  if (pdEl) pdEl.textContent = fmtINR(totalDue);
+  setEl('statPendingPayments',fmtINR(totalDue));
 }
 
-async function loadAttendance() {
-  const rows = await readSheet(SHEETS.attendance);
-  const el = document.getElementById('attendanceBody');
-  if (!el) return;
-  if (!rows.length) { el.innerHTML = '<tr><td colspan="7" class="table-empty">No attendance records yet.</td></tr>'; return; }
-  el.innerHTML = [...rows].reverse().map(r => `<tr>
-    <td>${fmtDate(r[0])}</td>
-    <td><strong>${r[1]||'—'}</strong></td>
-    <td>${r[2]||'—'}</td>
-    <td>${badge(r[3])}</td>
-    <td>${r[4] ? 'Day '+r[4] : '—'}</td>
-    <td>${r[5]||'—'}</td>
-    <td>${r[6]||'—'}</td>
+async function loadAttendance(){
+  const rows=await readSheet(SHEETS.attendance);
+  const el=document.getElementById('attendanceBody');if(!el)return;
+  if(!rows.length){el.innerHTML='<tr><td colspan="7" class="table-empty">No attendance records yet.</td></tr>';return;}
+  el.innerHTML=[...rows].reverse().map(r=>`<tr>
+    <td>${fmtDate(r[0])}</td><td><strong>${r[1]||'—'}</strong></td><td>${r[2]||'—'}</td>
+    <td>${badge(r[3])}</td><td>${r[4]?'Day '+r[4]:'—'}</td><td>${r[5]||'—'}</td><td>${r[6]||'—'}</td>
   </tr>`).join('');
 }
 
-async function loadPayments() {
-  const rows = await readSheet(SHEETS.payments);
-  const el = document.getElementById('paymentsBody');
-  const now = new Date(), t = todayStr();
-  let todayT = 0, monthT = 0;
-  rows.forEach(r => {
-    const amt = +r[2]||0, d = new Date(r[0]);
-    if (r[0] === t) todayT += amt;
-    if (d.getMonth()===now.getMonth() && d.getFullYear()===now.getFullYear()) monthT += amt;
-  });
-  setEl('payStatToday', fmtINR(todayT));
-  setEl('payStatMonth', fmtINR(monthT));
-  setEl('statMonthRevenue', fmtINR(monthT));
-
-  if (!el) return;
-  if (!rows.length) { el.innerHTML = '<tr><td colspan="7" class="table-empty">No payments yet.</td></tr>'; return; }
-  el.innerHTML = [...rows].reverse().map(r => `<tr>
-    <td>${fmtDate(r[0])}</td>
-    <td><strong>${r[1]||'—'}</strong></td>
+async function loadPayments(){
+  const rows=await readSheet(SHEETS.payments);
+  const el=document.getElementById('paymentsBody');
+  const now=new Date(),t=todayStr();
+  let todayT=0,monthT=0;
+  rows.forEach(r=>{const amt=+r[2]||0,d=new Date(r[0]);if(r[0]===t)todayT+=amt;if(d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear())monthT+=amt;});
+  setEl('payStatToday',fmtINR(todayT));setEl('payStatMonth',fmtINR(monthT));setEl('statMonthRevenue',fmtINR(monthT));
+  if(!el)return;
+  if(!rows.length){el.innerHTML='<tr><td colspan="7" class="table-empty">No payments yet.</td></tr>';return;}
+  el.innerHTML=[...rows].reverse().map(r=>`<tr>
+    <td>${fmtDate(r[0])}</td><td><strong>${r[1]||'—'}</strong></td>
     <td style="color:#2e7d32;font-weight:700;">${fmtINR(r[2])}</td>
     <td>${r[3]||'—'}</td><td>${r[4]||'—'}</td><td>${r[5]||'—'}</td><td>${r[6]||'—'}</td>
   </tr>`).join('');
 }
 
-async function loadEnquiries() {
-  const rows = await readSheet(SHEETS.enquiries);
-  const el = document.getElementById('enquiriesBody');
-  const open = rows.filter(r => r[5]==='New Lead'||r[5]==='Follow-up Required').length;
-  setEl('statOpenEnquiries', open);
-  if (!el) return;
-  if (!rows.length) { el.innerHTML = '<tr><td colspan="7" class="table-empty">No enquiries yet.</td></tr>'; return; }
-  el.innerHTML = [...rows].reverse().map(r => `<tr>
-    <td>${fmtDate(r[0])}</td>
-    <td><strong>${r[1]||'—'}</strong></td>
+async function loadEnquiries(){
+  const rows=await readSheet(SHEETS.enquiries);
+  const el=document.getElementById('enquiriesBody');
+  const open=rows.filter(r=>r[5]==='New Lead'||r[5]==='Follow-up Required').length;
+  setEl('statOpenEnquiries',open);
+  if(!el)return;
+  if(!rows.length){el.innerHTML='<tr><td colspan="7" class="table-empty">No enquiries yet.</td></tr>';return;}
+  el.innerHTML=[...rows].reverse().map(r=>`<tr>
+    <td>${fmtDate(r[0])}</td><td><strong>${r[1]||'—'}</strong></td>
     <td><a href="tel:${r[2]}">${r[2]||'—'}</a></td>
-    <td>${r[3]||'—'}</td><td>${r[4]||'—'}</td>
-    <td>${badge(r[5])}</td>
-    <td>${r[6]||'—'}</td>
+    <td>${r[3]||'—'}</td><td>${r[4]||'—'}</td><td>${badge(r[5])}</td><td>${r[6]||'—'}</td>
   </tr>`).join('');
 }
 
-async function loadFleet() {
-  const rows = await readSheet(SHEETS.fleet);
-  const el = document.getElementById('fleetBody');
-  if (!el) return;
-  if (!rows.length) { el.innerHTML = '<tr><td colspan="8" class="table-empty">No fleet logs yet.</td></tr>'; return; }
-  el.innerHTML = [...rows].reverse().map(r => `<tr>
-    <td>${fmtDate(r[0])}</td>
-    <td><strong>${r[1]||'—'}</strong></td>
-    <td>${r[2]||'—'}</td>
-    <td>${r[3]?r[3]+' hrs':'—'}</td>
-    <td>${r[4]?r[4]+' L':'—'}</td>
-    <td>${r[5]?fmtINR(r[5]):'—'}</td>
-    <td>${badge(r[6])}</td>
-    <td>${r[7]?r[7]+' km':'—'}</td>
+async function loadFleet(){
+  const rows=await readSheet(SHEETS.fleet);
+  const el=document.getElementById('fleetBody');if(!el)return;
+  if(!rows.length){el.innerHTML='<tr><td colspan="8" class="table-empty">No fleet logs yet.</td></tr>';return;}
+  el.innerHTML=[...rows].reverse().map(r=>`<tr>
+    <td>${fmtDate(r[0])}</td><td><strong>${r[1]||'—'}</strong></td><td>${r[2]||'—'}</td>
+    <td>${r[3]?r[3]+' hrs':'—'}</td><td>${r[4]?r[4]+' L':'—'}</td>
+    <td>${r[5]?fmtINR(r[5]):'—'}</td><td>${badge(r[6])}</td><td>${r[7]?r[7]+' km':'—'}</td>
   </tr>`).join('');
 }
 
-async function loadInstructors() {
-  const rows = await readSheet(SHEETS.instructors);
-  const el = document.getElementById('instructorsBody');
-  if (!el) return;
-  if (!rows.length) { el.innerHTML = '<tr><td colspan="5" class="table-empty">No instructor logs yet.</td></tr>'; return; }
-  el.innerHTML = [...rows].reverse().map(r => `<tr>
-    <td>${fmtDate(r[0])}</td>
-    <td><strong>${r[1]||'—'}</strong></td>
+async function loadInstructors(){
+  const rows=await readSheet(SHEETS.instructors);
+  const el=document.getElementById('instructorsBody');if(!el)return;
+  if(!rows.length){el.innerHTML='<tr><td colspan="5" class="table-empty">No instructor logs yet.</td></tr>';return;}
+  el.innerHTML=[...rows].reverse().map(r=>`<tr>
+    <td>${fmtDate(r[0])}</td><td><strong>${r[1]||'—'}</strong></td>
     <td style="text-align:center;">${r[2]||'—'}</td>
     <td style="text-align:center;">${r[3]?r[3]+' hrs':'—'}</td>
     <td>${r[4]||'—'}</td>
   </tr>`).join('');
 }
 
-function loadSectionData(sheetName) {
-  const map = {
-    [SHEETS.students]:    loadStudents,
-    [SHEETS.attendance]:  loadAttendance,
-    [SHEETS.payments]:    loadPayments,
-    [SHEETS.enquiries]:   loadEnquiries,
-    [SHEETS.fleet]:       loadFleet,
-    [SHEETS.instructors]: loadInstructors,
-  };
-  if (map[sheetName]) map[sheetName]();
+function loadSectionData(sheetName){
+  const map={[SHEETS.students]:loadStudents,[SHEETS.attendance]:loadAttendance,[SHEETS.payments]:loadPayments,
+    [SHEETS.enquiries]:loadEnquiries,[SHEETS.fleet]:loadFleet,[SHEETS.instructors]:loadInstructors};
+  if(map[sheetName]) map[sheetName]();
 }
 
 // ================================================================
 // FORM SETUP
 // ================================================================
-function setupForm(formId, sheetName, statusId, openBtnId, cancelBtnId, cardId, extractor, icon, actText) {
-  const form = document.getElementById(formId);
-  const card = document.getElementById(cardId);
-  if (!form) return;
-
-  // Set today's date on all date inputs
-  form.querySelectorAll('input[type="date"]').forEach(el => { if (!el.value) el.value = todayStr(); });
-
-  document.getElementById(openBtnId)?.addEventListener('click', () => {
-    card.style.display = card.style.display === 'none' ? 'block' : 'none';
-    form.querySelectorAll('input[type="date"]').forEach(el => { if (!el.value) el.value = todayStr(); });
+function setupForm(formId,sheetName,statusId,openBtnId,cancelBtnId,cardId,extractor,icon,actText){
+  const form=document.getElementById(formId);
+  const card=document.getElementById(cardId);
+  if(!form)return;
+  form.querySelectorAll('input[type="date"]').forEach(el=>{if(!el.value)el.value=todayStr();});
+  document.getElementById(openBtnId)?.addEventListener('click',()=>{
+    card.style.display=card.style.display==='none'?'block':'none';
+    form.querySelectorAll('input[type="date"]').forEach(el=>{if(!el.value)el.value=todayStr();});
   });
-
-  document.getElementById(cancelBtnId)?.addEventListener('click', () => {
-    card.style.display = 'none';
-    form.reset();
-    setFormStatus(statusId, '', '');
+  document.getElementById(cancelBtnId)?.addEventListener('click',()=>{
+    card.style.display='none';form.reset();setFormStatus(statusId,'','');
   });
-
-  form.addEventListener('submit', async e => {
+  form.addEventListener('submit',async e=>{
     e.preventDefault();
-    setFormStatus(statusId, '⏳ Saving to Google Sheets...', 'loading');
-    const data = extractor(form);
-    try {
-      const result = await sendToSheet(sheetName, data);
-      if (result.success || result.demo) {
-        const note = result.demo ? ' (Demo — connect Google Sheets to save for real)' : '';
-        setFormStatus(statusId, `✅ Saved successfully!${note}`, 'success');
-        addActivity(icon, actText(form));
+    setFormStatus(statusId,'⏳ Saving to Google Sheets...','loading');
+    const data=extractor(form);
+    try{
+      const result=await sendToSheet(sheetName,data);
+      if(result.success||result.demo){
+        const note=result.demo?' (Demo mode — set DEMO_MODE: false to save for real)':'';
+        setFormStatus(statusId,`✅ Saved successfully!${note}`,'success');
+        addActivity(icon,actText(form));
         form.reset();
-        form.querySelectorAll('input[type="date"]').forEach(el => { el.value = todayStr(); });
+        form.querySelectorAll('input[type="date"]').forEach(el=>{el.value=todayStr();});
         delete cache[sheetName];
-        setTimeout(() => loadSectionData(sheetName), 500);
-      } else {
-        setFormStatus(statusId, '❌ Error saving. Please try again.', 'error');
-      }
-    } catch {
-      setFormStatus(statusId, '❌ Network error. Check your connection.', 'error');
+        setTimeout(()=>loadSectionData(sheetName),500);
+      }else{setFormStatus(statusId,'❌ Error saving. Please try again.','error');}
+    }catch(err){
+      console.error(err);
+      setFormStatus(statusId,'❌ Network error. Check your Google Apps Script URL and CORS settings.','error');
     }
   });
 }
@@ -1444,26 +927,23 @@ function setupForm(formId, sheetName, statusId, openBtnId, cancelBtnId, cardId, 
 // ================================================================
 // SEARCH & FILTER
 // ================================================================
-function setupSearch(inputId, tbodyId, cols) {
-  const input = document.getElementById(inputId);
-  if (!input) return;
-  input.addEventListener('input', () => {
-    const q = input.value.toLowerCase();
-    document.querySelectorAll(`#${tbodyId} tr`).forEach(row => {
-      const text = cols.map(i => row.cells[i]?.textContent||'').join(' ').toLowerCase();
-      row.style.display = text.includes(q) ? '' : 'none';
+function setupSearch(inputId,tbodyId,cols){
+  const input=document.getElementById(inputId);if(!input)return;
+  input.addEventListener('input',()=>{
+    const q=input.value.toLowerCase();
+    document.querySelectorAll(`#${tbodyId} tr`).forEach(row=>{
+      const text=cols.map(i=>row.cells[i]?.textContent||'').join(' ').toLowerCase();
+      row.style.display=text.includes(q)?'':'none';
     });
   });
 }
-
-function setupSelectFilter(selectId, tbodyId, col) {
-  const sel = document.getElementById(selectId);
-  if (!sel) return;
-  sel.addEventListener('change', () => {
-    const val = sel.value.toLowerCase();
-    document.querySelectorAll(`#${tbodyId} tr`).forEach(row => {
-      const text = (row.cells[col]?.textContent||'').toLowerCase();
-      row.style.display = (!val||text.includes(val)) ? '' : 'none';
+function setupSelectFilter(selectId,tbodyId,col){
+  const sel=document.getElementById(selectId);if(!sel)return;
+  sel.addEventListener('change',()=>{
+    const val=sel.value.toLowerCase();
+    document.querySelectorAll(`#${tbodyId} tr`).forEach(row=>{
+      const text=(row.cells[col]?.textContent||'').toLowerCase();
+      row.style.display=(!val||text.includes(val))?'':'none';
     });
   });
 }
@@ -1471,58 +951,36 @@ function setupSelectFilter(selectId, tbodyId, col) {
 // ================================================================
 // UTILITIES
 // ================================================================
-function todayStr() { return new Date().toISOString().split('T')[0]; }
-function fmtINR(n)  { if (!n||isNaN(n)) return '₹0'; return '₹'+Number(n).toLocaleString('en-IN'); }
-function fmtDate(s) {
-  if (!s) return '—';
-  const d = new Date(s);
-  if (isNaN(d)) return s;
-  return d.toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' });
+function todayStr(){return new Date().toISOString().split('T')[0];}
+function fmtINR(n){if(!n||isNaN(n))return'₹0';return'₹'+Number(n).toLocaleString('en-IN');}
+function fmtDate(s){if(!s)return'—';const d=new Date(s);if(isNaN(d))return s;return d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});}
+function setEl(id,val){const el=document.getElementById(id);if(el)el.textContent=val;}
+function formData(form){const fd=new FormData(form),obj={};fd.forEach((v,k)=>obj[k]=v);return obj;}
+function setFormStatus(id,msg,type){
+  const el=document.getElementById(id);if(!el)return;
+  el.textContent=msg;el.className=`form-status ${type}`;
+  if(type==='success')setTimeout(()=>{el.textContent='';},5000);
 }
-function setEl(id, val) { const el = document.getElementById(id); if (el) el.textContent = val; }
-function formData(form) {
-  const fd = new FormData(form), obj = {};
-  fd.forEach((v, k) => obj[k] = v);
-  return obj;
+function showGlobalAlert(msg,type='success'){
+  const el=document.getElementById('globalAlert');if(!el)return;
+  el.textContent=msg;el.className=`global-alert alert alert-${type}`;el.style.display='block';
+  setTimeout(()=>{el.style.display='none';},8000);
 }
-function setFormStatus(id, msg, type) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  el.textContent = msg;
-  el.className = `form-status ${type}`;
-  if (type === 'success') setTimeout(() => { el.textContent = ''; }, 5000);
-}
-function showGlobalAlert(msg, type = 'success') {
-  const el = document.getElementById('globalAlert');
-  if (!el) return;
-  el.textContent = msg;
-  el.className = `global-alert alert alert-${type}`;
-  el.style.display = 'block';
-  setTimeout(() => { el.style.display = 'none'; }, 8000);
-}
-function addActivity(icon, text) {
-  const list = document.getElementById('recentActivity');
-  if (!list) return;
+function addActivity(icon,text){
+  const list=document.getElementById('recentActivity');if(!list)return;
   list.querySelector('.recent-empty')?.remove();
-  const item = document.createElement('div');
-  item.className = 'recent-item';
-  item.innerHTML = `<span class="ri-icon">${icon}</span><span class="ri-text">${text}</span><span class="ri-time">${new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})}</span>`;
-  list.insertBefore(item, list.firstChild);
-  if (list.children.length > 8) list.lastChild.remove();
+  const item=document.createElement('div');item.className='recent-item';
+  item.innerHTML=`<span class="ri-icon">${icon}</span><span class="ri-text">${text}</span><span class="ri-time">${new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})}</span>`;
+  list.insertBefore(item,list.firstChild);
+  if(list.children.length>8)list.lastChild.remove();
 }
-function badge(status) {
-  const map = {
-    'Present':'status-present','Absent':'status-absent','Leave':'status-leave',
-    'New Lead':'status-new','Contacted':'status-new',
-    'Follow-up Required':'status-followup','Enrolled':'status-enrolled',
-    'Not Interested':'status-absent','No Issues':'status-noissue',
-    'Minor Issue':'status-issue','Needs Service':'status-issue','Sent for Repair':'status-repair',
-  };
-  return `<span class="status-badge ${map[status]||''}">${status||'—'}</span>`;
+function badge(status){
+  const map={'Present':'status-present','Absent':'status-absent','Leave':'status-leave',
+    'New Lead':'status-new','Contacted':'status-new','Follow-up Required':'status-followup',
+    'Enrolled':'status-enrolled','Not Interested':'status-absent','No Issues':'status-noissue',
+    'Minor Issue':'status-issue','Needs Service':'status-issue','Sent for Repair':'status-repair'};
+  return`<span class="status-badge ${map[status]||''}">${status||'—'}</span>`;
 }
 </script>
 </body>
-
 </html>
-
-
