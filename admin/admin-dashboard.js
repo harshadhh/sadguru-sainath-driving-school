@@ -109,7 +109,7 @@ function addActivity(icon, text) {
 // ================================================================
 // API — READ & WRITE
 // ================================================================
-const isDemo = () => CONFIG.SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbx1df2WxPE9hCvglCgSeAzbW7zOpHtWUivN7On9E5odq_unpfRlBpqpok8867KEtj7y/exec';
+const isDemo = () => CONFIG.SCRIPT_URL === 'DEMO';
 
 async function sendToSheet(sheetName, data) {
   if (isDemo()) {
@@ -464,7 +464,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setEl('overviewDate', dateStr);
 
   // Set Google Sheets deep links
-  if (CONFIG.SHEET_ID !== '1XV4QZBd4S-QWYGYh44F0AninCA5nh99vI3zOotpyAlY') {
+  if (CONFIG.SHEET_ID !== '1rkdv-Q1dk2oll2H09VCQHXsWfXPR_5E9GTFR_mO0-p8') {
     const base = `https://docs.google.com/spreadsheets/d/${CONFIG.SHEET_ID}/edit#gid=`;
     const links = {
       studentsSheetLink: 0, attendanceSheetLink: 1, paymentsSheetLink: 2,
@@ -561,4 +561,3 @@ document.addEventListener('DOMContentLoaded', () => {
   // Load first section
   switchSection('overview');
 });
-
