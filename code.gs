@@ -1,5 +1,5 @@
 // ================================================================
-// MULIK MOTOR DRIVING SCHOOL — GOOGLE APPS SCRIPT BACKEND
+// SADGURU SAINTAH DRIVING SCHOOL — GOOGLE APPS SCRIPT BACKEND
 // ================================================================
 // HOW TO USE:
 // 1. Open your Google Sheet
@@ -139,7 +139,7 @@ function setupAllSheets() {
   const defaultSheet = ss.getSheetByName('Sheet1');
   if (defaultSheet) {
     defaultSheet.setName('_Dashboard_Notes');
-    defaultSheet.getRange('A1').setValue('Mulik Motor Driving School — Admin Data');
+    defaultSheet.getRange('A1').setValue('Sadguru Sainath Driving School — Admin Data');
     defaultSheet.getRange('A2').setValue('DO NOT DELETE any sheets below. They are connected to your website admin panel.');
     defaultSheet.getRange('A1').setFontWeight('bold').setFontSize(14);
   }
