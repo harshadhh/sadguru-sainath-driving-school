@@ -1080,7 +1080,7 @@ function initDashboard() {
   if (overviewDate) overviewDate.textContent = dateStr;
 
   // Google Sheets links
-  if (CONFIG.SHEET_ID !== 'YOUR_GOOGLE_SHEET_ID_HERE') {
+  if (CONFIG.SHEET_ID !== '1ItAYoLl-27oj7BeJD0FtxW6Ld1G7APxoy7WFY9AmNqI') {
     const base = `https://docs.google.com/spreadsheets/d/${CONFIG.SHEET_ID}/edit#gid=`;
     ['students','attendance','payments','enquiries','fleet','instructors'].forEach((s, i) => {
       const el = document.getElementById(s + 'SheetLink');
@@ -1166,7 +1166,7 @@ function initDashboard() {
   }
 
   // Demo mode banner
-  if (CONFIG.SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') {
+  if (CONFIG.SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbyWd0KxI1IJcNwSBVszyWVah5gUldO_8McN0B5IJsY2bt20hT3XLwSdi0XYIgygP6WJ/exec') {
     showGlobalAlert('⚙️  Demo Mode: Showing sample data. Paste your Google Apps Script URL in admin.html CONFIG to connect your real Google Sheet.', 'error');
   }
 
@@ -1203,7 +1203,7 @@ function switchSection(id) {
 // API
 // ================================================================
 async function sendToSheet(sheetName, data) {
-  if (CONFIG.SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') {
+  if (CONFIG.SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbyWd0KxI1IJcNwSBVszyWVah5gUldO_8McN0B5IJsY2bt20hT3XLwSdi0XYIgygP6WJ/exec') {
     return { success: true, demo: true };
   }
   const res = await fetch(CONFIG.SCRIPT_URL, {
@@ -1215,7 +1215,7 @@ async function sendToSheet(sheetName, data) {
 }
 
 async function readSheet(sheetName) {
-  if (CONFIG.SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') return getSampleData(sheetName);
+  if (CONFIG.SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbyWd0KxI1IJcNwSBVszyWVah5gUldO_8McN0B5IJsY2bt20hT3XLwSdi0XYIgygP6WJ/exec') return getSampleData(sheetName);
   if (cache[sheetName] && cache[sheetName].time > Date.now() - 60000) return cache[sheetName].data;
   const url = `${CONFIG.SCRIPT_URL}?sheet=${sheetName}&action=read`;
   const res = await fetch(url);
@@ -1522,4 +1522,5 @@ function badge(status) {
 }
 </script>
 </body>
+
 </html>
