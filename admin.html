@@ -999,7 +999,7 @@ button { cursor: pointer; font-family: inherit; }
 // ⚙️  CONFIGURATION — FILL IN AFTER SETUP
 // ================================================================
 const CONFIG = {
-  SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbyWd0KxI1IJcNwSBVszyWVah5gUldO_8McN0B5IJsY2bt20hT3XLwSdi0XYIgygP6WJ/exec',
+  SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbxqcczyyWk6Vw7I4MC98jYyS4ysBrptCBDz5wkku9jkbTDZez7bSH_aTb8tRYxdiP5E/exec',
   SHEET_ID:   '1ItAYoLl-27oj7BeJD0FtxW6Ld1G7APxoy7WFY9AmNqI',
 };
 
@@ -1166,7 +1166,7 @@ function initDashboard() {
   }
 
   // Demo mode banner
-  if (CONFIG.SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbyWd0KxI1IJcNwSBVszyWVah5gUldO_8McN0B5IJsY2bt20hT3XLwSdi0XYIgygP6WJ/exec') {
+  if (CONFIG.SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbxqcczyyWk6Vw7I4MC98jYyS4ysBrptCBDz5wkku9jkbTDZez7bSH_aTb8tRYxdiP5E/exec') {
     showGlobalAlert('⚙️  Demo Mode: Showing sample data. Paste your Google Apps Script URL in admin.html CONFIG to connect your real Google Sheet.', 'error');
   }
 
@@ -1203,7 +1203,7 @@ function switchSection(id) {
 // API
 // ================================================================
 async function sendToSheet(sheetName, data) {
-  if (CONFIG.SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbyWd0KxI1IJcNwSBVszyWVah5gUldO_8McN0B5IJsY2bt20hT3XLwSdi0XYIgygP6WJ/exec') {
+  if (CONFIG.SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbxqcczyyWk6Vw7I4MC98jYyS4ysBrptCBDz5wkku9jkbTDZez7bSH_aTb8tRYxdiP5E/exec') {
     return { success: true, demo: true };
   }
   const res = await fetch(CONFIG.SCRIPT_URL, {
@@ -1215,7 +1215,7 @@ async function sendToSheet(sheetName, data) {
 }
 
 async function readSheet(sheetName) {
-  if (CONFIG.SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbyWd0KxI1IJcNwSBVszyWVah5gUldO_8McN0B5IJsY2bt20hT3XLwSdi0XYIgygP6WJ/exec') return getSampleData(sheetName);
+  if (CONFIG.SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbxqcczyyWk6Vw7I4MC98jYyS4ysBrptCBDz5wkku9jkbTDZez7bSH_aTb8tRYxdiP5E/exec') return getSampleData(sheetName);
   if (cache[sheetName] && cache[sheetName].time > Date.now() - 60000) return cache[sheetName].data;
   const url = `${CONFIG.SCRIPT_URL}?sheet=${sheetName}&action=read`;
   const res = await fetch(url);
@@ -1524,3 +1524,4 @@ function badge(status) {
 </body>
 
 </html>
+
