@@ -1,383 +1,299 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact Us | Sadguru Sainath Driving School Lohegaon</title>
-  <meta name="description" content="Contact Sadguru Sainath Driving School. Shop No. 4, Masulkar Residency, near Apple Hospital, Lohegaon Pune 411047. Call 077750 88754." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+/* ============================================================
+   NEW SHREE SAINATH DRIVING SCHOOL — script.js
+   Pure vanilla JS — works on GitHub Pages, local, anywhere
+   ============================================================ */
 
-<!-- HEADER -->
-<header class="site-header" id="siteHeader">
-  <div class="container header-inner">
-    <a href="index.html" class="logo" aria-label="Home">
-      <svg class="logo-svg" viewBox="0 0 220 90" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M10,45 Q30,18 57,36" stroke="#E31E24" stroke-width="5.5" fill="none" stroke-linecap="round"/>
-        <path d="M16,52 Q34,26 57,41" stroke="#FFD700" stroke-width="3" fill="none" stroke-linecap="round"/>
-        <path d="M210,45 Q190,18 163,36" stroke="#E31E24" stroke-width="5.5" fill="none" stroke-linecap="round"/>
-        <path d="M204,52 Q186,26 163,41" stroke="#FFD700" stroke-width="3" fill="none" stroke-linecap="round"/>
-        <circle cx="110" cy="46" r="27" fill="none" stroke="#1a1a1a" stroke-width="5"/>
-        <circle cx="110" cy="46" r="8.5" fill="#1a1a1a"/>
-        <line x1="110" y1="19" x2="110" y2="38" stroke="#1a1a1a" stroke-width="4.5" stroke-linecap="round"/>
-        <line x1="85"  y1="58" x2="103" y2="50" stroke="#1a1a1a" stroke-width="4.5" stroke-linecap="round"/>
-        <line x1="135" y1="58" x2="117" y2="50" stroke="#1a1a1a" stroke-width="4.5" stroke-linecap="round"/>
-        <path d="M68,27 Q110,5 152,27" fill="#E31E24"/>
-        <text x="110" y="23" text-anchor="middle" font-family="Outfit,sans-serif" font-size="7.5" fill="#FFD700" font-weight="800">LEARN TO FLY...!</text>
-        <rect x="56" y="68" width="108" height="15" rx="3" fill="#1a1a1a"/>
-        <text x="110" y="79" text-anchor="middle" font-family="Outfit,sans-serif" font-size="5.8" fill="#FFFFFF" font-weight="700" letter-spacing="0.5">NEW SHREE SAINATH</text>
-      </svg>
-      <div class="logo-text">
-        <span class="logo-name">Sadguru Sainath</span>
-        <span class="logo-sub">School &middot; Lohegaon, Pune</span>
-      </div>
-    </a>
-    <nav class="main-nav" id="mainNav" aria-label="Main navigation">
-      <a href="index.html"    class="nav-link">Home</a>
-      <a href="training.html" class="nav-link">Training</a>
-      <a href="rto.html"      class="nav-link">RTO Services</a>
-      <a href="team.html"     class="nav-link">Our Team</a>
-      <a href="contact.html"  class="nav-link active">Contact</a>
-      <a href="tel:07775088754" class="btn btn-red btn-sm nav-cta">&#128222; Call Now</a>
-    </nav>
-    <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</header>
+(function () {
+  'use strict';
 
-<!-- PAGE HERO -->
-<section class="page-hero page-hero-red">
-  <div class="page-hero-grid"></div>
-  <div class="container page-hero-content">
-    <nav class="breadcrumb" aria-label="Breadcrumb">
-      <a href="index.html">Home</a>
-      <span class="sep" aria-hidden="true">&#8250;</span>
-      <span class="crumb-active">Contact Us</span>
-    </nav>
-    <h1>Let's Get You<br><span>On the Road</span></h1>
-    <p class="page-hero-desc">Walk in, call us, or fill the form below. Our team responds within a few hours to confirm your admission and answer your questions.</p>
-  </div>
-</section>
+  document.addEventListener('DOMContentLoaded', init);
 
-<!-- CONTACT SECTION -->
-<section class="section">
-  <div class="container contact-layout">
+  function init() {
+    headerScroll();
+    hamburgerMenu();
+    setActiveNav();
+    counterAnimation();
+    testimonialSlider();
+    scrollReveal();
+    faqAccordion();
+    contactForm();
+  }
 
-    <!-- LEFT: INFO -->
-    <div class="contact-info-stack">
+  /* ----------------------------------------------------------
+     1. HEADER — add shadow on scroll
+  ---------------------------------------------------------- */
+  function headerScroll() {
+    var header = document.getElementById('siteHeader');
+    if (!header) return;
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 60) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    }, { passive: true });
+  }
 
-      <!-- CALL -->
-      <div class="contact-info-card card-accent reveal">
-        <div class="ci-icon">&#128222;</div>
-        <div>
-          <h4>Call Us Directly</h4>
-          <p>Speak to our team for instant answers on admissions, schedules, and RTO queries.</p>
-          <a href="tel:07775088754" class="ci-phone">077750 88754</a>
-        </div>
-      </div>
+  /* ----------------------------------------------------------
+     2. HAMBURGER MENU
+  ---------------------------------------------------------- */
+  function hamburgerMenu() {
+    var btn = document.getElementById('hamburgerBtn');
+    var nav = document.getElementById('mainNav');
+    if (!btn || !nav) return;
 
-      <!-- BRANCH 1 -->
-      <div class="contact-info-card reveal">
-        <div class="ci-icon">&#128205;</div>
-        <div>
-          <h4>Branch 1 &mdash; Porwal Road</h4>
-          <p>Shop No. 8G, JD Gatha Building,<br>Porwal Rd, Near Axis Bank,<br>Lohegaon, Pune 411047</p>
-          <div style="display:flex;gap:8px;margin-top:9px;flex-wrap:wrap;">
-            <a href="https://www.google.com/maps/dir/?api=1&destination=Shop+8G+JD+Gatha+Building+Porwal+Road+Lohegaon+Pune+411047"
-               target="_blank" rel="noopener noreferrer" class="ci-link" style="background:var(--red);color:#fff;padding:6px 13px;border-radius:50px;font-size:0.75rem;">
-              &#128663; Get Directions
-            </a>
-            <a href="https://maps.google.com/?q=Shop+8G+JD+Gatha+Building+Porwal+Road+near+Axis+Bank+Lohegaon+Pune+411047"
-               target="_blank" rel="noopener noreferrer" class="ci-link" style="margin-top:0;">
-              &#128270; View on Map
-            </a>
-          </div>
-        </div>
-      </div>
+    btn.addEventListener('click', function () {
+      var isOpen = nav.classList.toggle('nav-open');
+      btn.classList.toggle('is-open', isOpen);
+      btn.setAttribute('aria-expanded', String(isOpen));
+    });
 
-      <!-- BRANCH 2 -->
-      <div class="contact-info-card reveal">
-        <div class="ci-icon">&#128205;</div>
-        <div>
-          <h4>Branch 2 &mdash; Apple Hospital Area</h4>
-          <p>Shop No. 4, Masulkar Residency,<br>Near Apple Hospital, Shivnagar Chirke Colony,<br>Lohegaon, Pune 411047</p>
-          <div style="display:flex;gap:8px;margin-top:9px;flex-wrap:wrap;">
-            <a href="https://www.google.com/maps/dir/?api=1&destination=Shop+4+Masulkar+Residency+near+Apple+Hospital+Shivnagar+Chirke+Colony+Lohegaon+Pune+411047"
-               target="_blank" rel="noopener noreferrer" class="ci-link" style="background:var(--red);color:#fff;padding:6px 13px;border-radius:50px;font-size:0.75rem;">
-              &#128663; Get Directions
-            </a>
-            <a href="https://maps.google.com/?q=Masulkar+Residency+near+Apple+Hospital+Shivnagar+Chirke+Colony+Lohegaon+Pune+411047"
-               target="_blank" rel="noopener noreferrer" class="ci-link" style="margin-top:0;">
-              &#128270; View on Map
-            </a>
-          </div>
-        </div>
-      </div>
+    // Close when a nav link is clicked
+    var links = nav.querySelectorAll('.nav-link');
+    links.forEach(function (link) {
+      link.addEventListener('click', function () {
+        nav.classList.remove('nav-open');
+        btn.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
 
-      <!-- HOURS -->
-      <div class="contact-info-card reveal">
-        <div class="ci-icon">&#128336;</div>
-        <div>
-          <h4>Working Hours</h4>
-          <p>
-            <strong>Monday &ndash; Saturday</strong><br>
-            6:00 AM &ndash; 9:00 PM<br><br>
-            <strong>Sunday:</strong> By Appointment Only
-          </p>
-        </div>
-      </div>
+    // Close when clicking outside
+    document.addEventListener('click', function (e) {
+      var header = document.getElementById('siteHeader');
+      if (header && !header.contains(e.target)) {
+        nav.classList.remove('nav-open');
+        btn.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
 
-      <!-- WHATSAPP -->
-      <div class="contact-info-card reveal">
-        <div class="ci-icon">&#128172;</div>
-        <div>
-          <h4>WhatsApp Us</h4>
-          <p>Prefer messaging? We reply quickly on WhatsApp during office hours.</p>
-          <a href="https://wa.me/917775088754?text=Hi%20Sadguru%20Sainath%20Driving%20School%2C%20I%20want%20to%20enquire%20about%20driving%20classes."
-             target="_blank" rel="noopener noreferrer" class="ci-link">Open WhatsApp Chat &#8594;</a>
-        </div>
-      </div>
+  /* ----------------------------------------------------------
+     3. ACTIVE NAV LINK
+  ---------------------------------------------------------- */
+  function setActiveNav() {
+    var page = window.location.pathname.split('/').pop() || 'index.html';
+    var links = document.querySelectorAll('.nav-link');
+    links.forEach(function (link) {
+      var href = link.getAttribute('href') || '';
+      if (href === page || (page === '' && href === 'index.html')) {
+        link.classList.add('active');
+      }
+    });
+  }
 
-    </div><!-- end contact-info-stack -->
+  /* ----------------------------------------------------------
+     4. COUNTER ANIMATION
+  ---------------------------------------------------------- */
+  function counterAnimation() {
+    var counters = document.querySelectorAll('[data-count]');
+    if (!counters.length) return;
 
-    <!-- RIGHT: FORM -->
-    <div class="form-card reveal">
-      <h2>Send Us a Message</h2>
-      <p class="form-subtitle">Fill in your details below. We'll call you back to schedule your session and confirm enrollment.</p>
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && !entry.target.dataset.done) {
+          entry.target.dataset.done = '1';
+          animateCount(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
 
-      <!--
-        IMPORTANT — HOW THIS FORM WORKS:
-        ─────────────────────────────────────────────────
-        This form uses JavaScript validation only.
-        After validation passes, it redirects to thank-you.html.
+    counters.forEach(function (el) { observer.observe(el); });
+  }
 
-        This works identically on:
-          ✓ GitHub Pages
-          ✓ Local computer (VS Code + Live Server)
-          ✓ Any web host
-          ✓ Opened directly as a file in browser
+  function animateCount(el) {
+    var target = parseInt(el.getAttribute('data-count'), 10);
+    var duration = 1800;
+    var steps = 50;
+    var step = 0;
+    var timer = setInterval(function () {
+      step++;
+      var val = Math.round((step / steps) * target);
+      el.textContent = val.toLocaleString();
+      if (step >= steps) {
+        el.textContent = target.toLocaleString();
+        clearInterval(timer);
+      }
+    }, duration / steps);
+  }
 
-        No backend, no server, no Netlify required.
+  /* ----------------------------------------------------------
+     5. TESTIMONIAL SLIDER
+  ---------------------------------------------------------- */
+  function testimonialSlider() {
+    var slides   = document.querySelectorAll('.testimonial-slide');
+    var dotsWrap = document.getElementById('sliderDots');
+    var prevBtn  = document.getElementById('prevSlide');
+    var nextBtn  = document.getElementById('nextSlide');
 
-        NOTE: The form data is NOT emailed automatically.
-        If you want to receive email notifications, you can:
-          Option A) Sign up at formspree.io (free) and change
-                    the form action to your Formspree endpoint.
-                    e.g. action="https://formspree.io/f/YOUR_ID"
-                    and add method="POST" back.
-          Option B) Use EmailJS (free) — emailjs.com
-          Option C) Keep it as-is — students will call after
-                    seeing the thank-you page.
-        ─────────────────────────────────────────────────
-      -->
-      <form id="contactForm" novalidate>
+    if (!slides.length || !dotsWrap) return;
 
-        <div class="form-row">
-          <div class="form-group">
-            <label for="f-name">Full Name <span style="color:var(--red)">*</span></label>
-            <input
-              type="text"
-              id="f-name"
-              name="name"
-              placeholder="Your full name"
-              autocomplete="name"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="f-phone">Phone Number <span style="color:var(--red)">*</span></label>
-            <input
-              type="tel"
-              id="f-phone"
-              name="phone"
-              placeholder="10-digit mobile number"
-              autocomplete="tel"
-              inputmode="numeric"
-              maxlength="10"
-              required
-            />
-          </div>
-        </div>
+    var current = 0;
+    var timer   = null;
 
-        <div class="form-group">
-          <label for="f-email">Email Address <span style="color:var(--muted);font-weight:400;">(optional)</span></label>
-          <input
-            type="email"
-            id="f-email"
-            name="email"
-            placeholder="your@email.com"
-            autocomplete="email"
-          />
-        </div>
+    // Build dots
+    slides.forEach(function (_, i) {
+      var dot = document.createElement('button');
+      dot.className = 'dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+      dot.addEventListener('click', function () {
+        goTo(i);
+        resetTimer();
+      });
+      dotsWrap.appendChild(dot);
+    });
 
-        <div class="form-group">
-          <label for="f-service">What are you looking for? <span style="color:var(--red)">*</span></label>
-          <select id="f-service" name="service" required>
-            <option value="">&#8212; Please select a service &#8212;</option>
-            <option value="Learner's License Help">Learner's License Help</option>
-            <option value="15-Day Training Program">15-Day Training Program</option>
-            <option value="30-Day Comprehensive Program">30-Day Comprehensive Program</option>
-            <option value="Advanced / Highway Driving">Advanced / Highway Driving</option>
-            <option value="Permanent License Assistance">Permanent License Assistance</option>
-            <option value="License Renewal">License Renewal</option>
-            <option value="Other / Not Sure Yet">Other / Not Sure Yet</option>
-          </select>
-        </div>
+    function goTo(n) {
+      slides[current].classList.remove('active');
+      dotsWrap.querySelectorAll('.dot')[current].classList.remove('active');
+      current = (n + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      dotsWrap.querySelectorAll('.dot')[current].classList.add('active');
+    }
 
-        <div class="form-group">
-          <label for="f-timing">Preferred Batch Timing <span style="color:var(--muted);font-weight:400;">(optional)</span></label>
-          <select id="f-timing" name="timing">
-            <option value="">&#8212; Select preferred time &#8212;</option>
-            <option value="Early Morning 7AM-9AM">Early Morning (7AM &ndash; 9AM)</option>
-            <option value="Morning 9AM-12PM">Morning (9AM &ndash; 12PM)</option>
-            <option value="Afternoon 12PM-4PM">Afternoon (12PM &ndash; 4PM)</option>
-            <option value="Evening 4PM-7PM">Evening (4PM &ndash; 7PM)</option>
-            <option value="Weekends Only">Weekends Only</option>
-            <option value="Flexible">I'm Flexible</option>
-          </select>
-        </div>
+    function startTimer() {
+      timer = setInterval(function () { goTo(current + 1); }, 5500);
+    }
+    function resetTimer() {
+      clearInterval(timer);
+      startTimer();
+    }
 
-        <div class="form-group">
-          <label for="f-message">Additional Details <span style="color:var(--muted);font-weight:400;">(optional)</span></label>
-          <textarea
-            id="f-message"
-            name="message"
-            placeholder="E.g. I am a first-time learner. I want to start next week. I have a Maruti Swift..."
-          ></textarea>
-        </div>
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function () { goTo(current - 1); resetTimer(); });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function () { goTo(current + 1); resetTimer(); });
+    }
 
-        <button type="submit" class="form-submit">Send My Enquiry &#8594;</button>
+    startTimer();
+  }
 
-        <p class="form-footnote">
-          &#128222; Prefer calling? Reach us at
-          <a href="tel:07775088754">077750 88754</a> &mdash; we answer right away.
-        </p>
+  /* ----------------------------------------------------------
+     6. SCROLL REVEAL
+  ---------------------------------------------------------- */
+  function scrollReveal() {
+    var els = document.querySelectorAll('.reveal');
+    if (!els.length) return;
 
-      </form>
-    </div><!-- end form-card -->
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-  </div><!-- end contact-layout -->
+    els.forEach(function (el) { observer.observe(el); });
+  }
 
-  <!-- DUAL BRANCH MAPS -->
-  <div class="container contact-map-wrap">
-    <h3 style="font-family:var(--font-head);font-size:1.2rem;font-weight:800;color:var(--black);margin-bottom:20px;text-align:center;">Our Two Branches</h3>
-    <div class="contact-branches">
+  /* ----------------------------------------------------------
+     7. FAQ ACCORDION
+  ---------------------------------------------------------- */
+  function faqAccordion() {
+    var items = document.querySelectorAll('.faq-item');
+    items.forEach(function (item) {
+      var btn = item.querySelector('.faq-question');
+      if (!btn) return;
+      btn.addEventListener('click', function () {
+        var isOpen = item.classList.contains('open');
+        // Close all
+        items.forEach(function (i) { i.classList.remove('open'); });
+        // Open this one if it wasn't already open
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+  }
 
-      <div class="cbranch">
-        <div class="cbranch-head cbranch-head-a">
-          <div>
-            <div class="cbranch-head-label">Branch 1</div>
-            <div class="cbranch-head-name">&#128205; JD Gatha Building, Porwal Road</div>
-          </div>
-        </div>
-        <iframe class="cbranch-map"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3781.0!2d73.9282!3d18.5915!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDM1JzI5LjQiTiA3M8KwNTUnNDEuNSJF!5e0!3m2!1sen!2sin!4v1700000000003"
-          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-          title="Branch 1 - JD Gatha Building Porwal Road Lohegaon">
-        </iframe>
-        <div class="cbranch-body">
-          <p>Shop No. 8G, JD Gatha Building, Porwal Rd,<br>Near Axis Bank, Lohegaon, Pune 411047</p>
-          <div class="cbranch-links">
-            <a href="https://www.google.com/maps/dir/?api=1&destination=Shop+8G+JD+Gatha+Building+Porwal+Road+Lohegaon+Pune+411047" target="_blank" rel="noopener noreferrer" class="cbranch-link red">&#128663; Get Directions</a>
-            <a href="https://maps.google.com/?q=Shop+8G+JD+Gatha+Building+Porwal+Road+near+Axis+Bank+Lohegaon+Pune" target="_blank" rel="noopener noreferrer" class="cbranch-link">&#128270; View on Map</a>
-          </div>
-        </div>
-      </div>
+  /* ----------------------------------------------------------
+     8. CONTACT FORM
+     Validates required fields then redirects to thank-you.html
+     Works on GitHub Pages, local server, everywhere.
+  ---------------------------------------------------------- */
+ function contactForm() {
+  var form = document.getElementById('contactForm');
+  if (!form) return;
 
-      <div class="cbranch">
-        <div class="cbranch-head cbranch-head-b">
-          <div>
-            <div class="cbranch-head-label">Branch 2</div>
-            <div class="cbranch-head-name">&#128205; Masulkar Residency, Apple Hospital Area</div>
-          </div>
-        </div>
-        <iframe class="cbranch-map"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3781.134520967887!2d73.93040557503315!3d18.591086982523073!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c1498a329619%3A0x4fcbe02a7eb13c21!2sNew%20Shree%20Sainath%20Driving%20School!5e0!3m2!1sen!2sin!4v1700000000004"
-          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-          title="Branch 2 - Masulkar Residency near Apple Hospital Lohegaon">
-        </iframe>
-        <div class="cbranch-body">
-          <p>Shop No. 4, Masulkar Residency, Near Apple Hospital,<br>Shivnagar Chirke Colony, Lohegaon, Pune 411047</p>
-          <div class="cbranch-links">
-            <a href="https://www.google.com/maps/dir/?api=1&destination=Shop+4+Masulkar+Residency+near+Apple+Hospital+Shivnagar+Chirke+Colony+Lohegaon+Pune+411047" target="_blank" rel="noopener noreferrer" class="cbranch-link red">&#128663; Get Directions</a>
-            <a href="https://maps.google.com/?q=Masulkar+Residency+near+Apple+Hospital+Shivnagar+Chirke+Colony+Lohegaon+Pune" target="_blank" rel="noopener noreferrer" class="cbranch-link">&#128270; View on Map</a>
-          </div>
-        </div>
-      </div>
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
 
-    </div>
-  </div>
-</section>
+    var nameEl    = document.getElementById('f-name');
+    var phoneEl   = document.getElementById('f-phone');
+    var emailEl   = document.getElementById('f-email');
+    var serviceEl = document.getElementById('f-service');
+    var timingEl  = document.getElementById('f-timing');
+    var messageEl = document.getElementById('f-message');
 
-<!-- CTA -->
-<section class="cta-strip">
-  <div class="container cta-strip-inner">
-    <div>
-      <h2>Ready to Get Your License?</h2>
-      <p>Join 4,500+ successful students from Lohegaon and surrounding Pune areas.</p>
-    </div>
-    <div class="cta-btns">
-      <a href="tel:07775088754" class="btn btn-white btn-lg">&#128222; 077750 88754</a>
-      <a href="https://wa.me/917775088754" target="_blank" rel="noopener noreferrer" class="btn btn-outline-white btn-lg">&#128172; WhatsApp</a>
-    </div>
-  </div>
-</section>
+    var name    = nameEl    ? nameEl.value.trim() : '';
+    var phone   = phoneEl   ? phoneEl.value.trim() : '';
+    var email   = emailEl   ? emailEl.value.trim() : '';
+    var service = serviceEl ? serviceEl.value : '';
+    var timing  = timingEl  ? timingEl.value : '';
+    var message = messageEl ? messageEl.value.trim() : '';
 
-<!-- FOOTER -->
-<footer class="site-footer">
-  <div class="container footer-grid">
-    <div class="footer-brand footer-col">
-      <div class="footer-brand-name">Sadguru Sainath<br>Driving School</div>
-      <p>Lohegaon's most trusted driving school since 2016. Building confident, safe, and responsible drivers.</p>
-      <div class="footer-socials">
-        <a href="#" aria-label="Facebook">&#128280;</a>
-        <a href="#" aria-label="Instagram">&#128248;</a>
-        <a href="https://wa.me/917775088754" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">&#128172;</a>
-      </div>
-    </div>
-    <div class="footer-col">
-      <h4>Quick Links</h4>
-      <a href="index.html">Home</a>
-      <a href="training.html">Training Programs</a>
-      <a href="rto.html">RTO Services</a>
-      <a href="team.html">Our Team</a>
-      <a href="contact.html">Contact Us</a>
-    </div>
-    <div class="footer-col">
-      <h4>Services</h4>
-      <a href="training.html">Beginner Training</a>
-      <a href="training.html">Advanced Driving</a>
-      <a href="rto.html">Learner's License</a>
-      <a href="rto.html">Permanent License</a>
-      <a href="rto.html">License Renewal</a>
-    </div>
-    <div class="footer-col footer-contact">
-      <h4>Contact</h4>
-      <p>&#128205; Shop No. 4, Masulkar Residency,<br>Near Apple Hospital,<br>Lohegaon, Pune 411047</p>
-      <p>&#128222; <a href="tel:07775088754">077750 88754</a></p>
-      <p>&#128336; Mon&ndash;Sat: 6:00 AM &ndash; 9:00 PM</p>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <div class="container">
-      <p>&copy; 2024 Sadguru Sainath Driving School. All rights reserved. Lohegaon, Pune 411047</p>
-    </div>
-  </div>
-</footer>
+    // --- VALIDATION ---
+    if (!name) {
+      showError(nameEl, 'Please enter your full name.');
+      return;
+    }
 
-<a href="tel:07775088754" class="sticky-call" aria-label="Call us now">&#128222; Call Now &nbsp;&mdash;&nbsp; 077750 88754</a>
-<script src="script.js"></script>
+    var digits = phone.replace(/\D/g, '');
+    if (!phone || digits.length < 10) {
+      showError(phoneEl, 'Please enter a valid 10-digit phone number.');
+      return;
+    }
 
-<script>
-  (function(){
-    emailjs.init("aWASVzhaebbIqd-qr");
-  })();
-</script>
+    if (!service) {
+      showError(serviceEl, 'Please select a service.');
+      return;
+    }
 
-</body>
-</html>
+    // --- EMAILJS SEND ---
+    emailjs.send("service_2v17tuw", "template_vy5fe0d", {
+      name: name,
+      phone: phone,
+      email: email,
+      service: service,
+      timing: timing,
+      message: message
+    })
+    .then(function () {
+      window.location.href = 'thank-you.html';
+    })
+    .catch(function (error) {
+      alert('Something went wrong. Please call us directly.');
+      console.log(error);
+    });
+  });
+
+  var inputs = form.querySelectorAll('input, select, textarea');
+  inputs.forEach(function (el) {
+    el.addEventListener('input', function () { clearError(el); });
+    el.addEventListener('change', function () { clearError(el); });
+  });
+}
+
+  function showError(el, msg) {
+    if (!el) return;
+    clearError(el);
+    el.style.borderColor = '#E31E24';
+    el.style.boxShadow = '0 0 0 3px rgba(227,30,36,0.15)';
+    var err = document.createElement('span');
+    err.className = 'field-error';
+    err.style.cssText = 'display:block;font-size:0.75rem;color:#E31E24;margin-top:4px;font-family:Outfit,sans-serif;';
+    err.textContent = msg;
+    el.parentNode.appendChild(err);
+    el.focus();
+  }
+
+  function clearError(el) {
+    el.style.borderColor = '';
+    el.style.boxShadow = '';
+    var prev = el.parentNode ? el.parentNode.querySelector('.field-error') : null;
+    if (prev) prev.remove();
+  }
+
+})();
