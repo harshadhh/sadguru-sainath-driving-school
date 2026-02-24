@@ -7,8 +7,8 @@
 // ⚙️  CONFIG — YOUR VALUES ARE ALREADY SET BELOW
 // ================================================================
 const CONFIG = {
-  SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbwBIhTnVGd9PSabtIuiSRB20MBZzSK84Mzh0rfkRE3q22lkga8USw-ffkpPuuzS37R_cQ/exec',
-  SHEET_ID:   '1t8_PrvldhzTl_rYLlT4Ikfdzy53jvkrUZpn7DruATOM',
+  SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbwEq3YAR_ZznSqry25S_Qyv_i8pqvuh8pLUd1gPVy9gaB2oK-Z0hCruSZsQIywOHFvf/exec',
+  SHEET_ID:   '1pV1tmKNmC3sscTwYJ1Q9Gzp_WgFw-j4ryjUnwpep_KM',
 };
 
 // Sheet tab names (must match exactly in Google Sheets)
