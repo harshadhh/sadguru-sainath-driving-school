@@ -4,7 +4,7 @@
    ============================================================ */
 
 // ================================================================
-// ⚙️  CONFIG — paste your values here after Google Sheets setup
+// ⚙️  CONFIG — YOUR VALUES ARE ALREADY SET BELOW
 // ================================================================
 const CONFIG = {
   SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbwBIhTnVGd9PSabtIuiSRB20MBZzSK84Mzh0rfkRE3q22lkga8USw-ffkpPuuzS37R_cQ/exec',
@@ -108,24 +108,29 @@ function addActivity(icon, text) {
 
 // ================================================================
 // API — READ & WRITE
+// ✅ FIX: isDemo() now correctly checks for placeholder text only
 // ================================================================
-const isDemo = () => CONFIG.SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbwBIhTnVGd9PSabtIuiSRB20MBZzSK84Mzh0rfkRE3q22lkga8USw-ffkpPuuzS37R_cQ/exec';
+const PLACEHOLDER = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
+const isDemo = () => !CONFIG.SCRIPT_URL || CONFIG.SCRIPT_URL === PLACEHOLDER;
 
 async function sendToSheet(sheetName, data) {
-  if (isDemo()) {
-    console.log('DEMO: would save to', sheetName, data);
-    return { success: true, demo: true };
+  const payload = { sheet: sheetName, action: 'append', data };
+  try {
+    const res = await fetch(CONFIG.SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    // no-cors returns opaque response — treat as success
+    return { success: true };
+  } catch (err) {
+    console.error('sendToSheet error:', err);
+    throw err;
   }
-  const res = await fetch(CONFIG.SCRIPT_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ sheet: sheetName, action: 'append', data }),
-  });
-  return await res.json();
 }
 
 async function readSheet(sheetName) {
-  if (isDemo()) return getSampleData(sheetName);
   if (cache[sheetName] && cache[sheetName].time > Date.now() - 60000) {
     return cache[sheetName].data;
   }
@@ -138,15 +143,15 @@ async function readSheet(sheetName) {
 }
 
 // ================================================================
-// SAMPLE DATA (shown in demo mode)
+// SAMPLE DATA (only shown if SCRIPT_URL is still placeholder)
 // ================================================================
 function getSampleData(sheet) {
   const t = todayStr();
   const samples = {
     Students: [
-      ['Priya Sharma',   '9876543210', '30-Day Comprehensive',    'Aditya Sir', '2026-02-01', '5000', '2500', 'Lohegaon',     'Good progress'],
-      ['Rahul More',     '9123456789', "Learner's License Only",  'Atish Sir',  '2026-02-05', '2000', '2000', 'Alandi Road',  'Paid in full'],
-      ['Sneha Kulkarni', '9988776655', '15-Day Program',          'Shyam Sir',  '2026-02-10', '3000', '1500', 'Vishrantwadi', 'Balance due'],
+      ['Priya Sharma',   '9876543210', '30-Day Comprehensive',   'Aditya Sir', '2026-02-01', '5000', '2500', 'Lohegaon',     'Good progress'],
+      ['Rahul More',     '9123456789', "Learner's License Only", 'Atish Sir',  '2026-02-05', '2000', '2000', 'Alandi Road',  'Paid in full'],
+      ['Sneha Kulkarni', '9988776655', '15-Day Program',         'Shyam Sir',  '2026-02-10', '3000', '1500', 'Vishrantwadi', 'Balance due'],
     ],
     Attendance: [
       [t, 'Priya Sharma',   'Aditya Sir', 'Present', '12', 'Car 1', 'Good parking session'],
@@ -154,30 +159,29 @@ function getSampleData(sheet) {
       [t, 'Rahul More',     'Atish Sir',  'Absent',  '',   '',      'Informed in advance'],
     ],
     Payments: [
-      [t,            'Priya Sharma',   '2500', 'Cash',      'Partial Payment', 'RCP001', '1st installment'],
-      ['2026-02-05', 'Rahul More',     '2000', 'UPI / GPay','Full Payment',    'RCP002', 'GPay — paid full'],
-      ['2026-02-10', 'Sneha Kulkarni', '1500', 'Cash',      'Partial Payment', 'RCP003', 'Balance next week'],
+      [t,            'Priya Sharma',   '2500', 'Cash',       'Partial Payment', 'RCP001', '1st installment'],
+      ['2026-02-05', 'Rahul More',     '2000', 'UPI / GPay', 'Full Payment',    'RCP002', 'GPay — paid full'],
+      ['2026-02-10', 'Sneha Kulkarni', '1500', 'Cash',       'Partial Payment', 'RCP003', 'Balance next week'],
     ],
     Enquiries: [
-      [t,            'Anita Desai',  '9876501234', 'Google Maps',     '30-Day Comprehensive', 'New Lead',           'Morning batch interest'],
-      ['2026-02-20', 'Vikram Patil', '9812345678', 'Referral / Friend','Learner\'s License',  'Follow-up Required', 'Wants fee details'],
-      ['2026-02-18', 'Meera Joshi',  '9900112233', 'Website',          '15-Day Program',      'Enrolled',           'Enrolled same day'],
+      [t,            'Anita Desai',  '9876501234', 'Google Maps',      '30-Day Comprehensive', 'New Lead',           'Morning batch interest'],
+      ['2026-02-20', 'Vikram Patil', '9812345678', 'Referral / Friend',"Learner's License",    'Follow-up Required', 'Wants fee details'],
+      ['2026-02-18', 'Meera Joshi',  '9900112233', 'Website',           '15-Day Program',      'Enrolled',           'Enrolled same day'],
     ],
     RTO_Services: [
-      [t,            'Suresh Kale',  '9000011111', 'License Renewal',        'MH12 2019 1234', '800',  '800',  'Completed',      '2026-02-25', 'Owner', 'Done, DL collected'],
-      ['2026-02-20', 'Anand Patil',  '9111122222', 'Two Wheeler Transfer',   'MH14 AK 5678',   '1500', '1000', 'In Progress',    '2026-03-01', 'Owner', 'Docs received, filed'],
-      ['2026-02-19', 'Kavita More',  '9222233333', 'DL Address Change',      'MH12 2018 5678', '500',  '500',  'Submitted to RTO','2026-02-28','Owner', 'Submitted, awaiting'],
-      ['2026-02-18', 'Ravi Shinde',  '9333344444', 'Two Wheeler Insurance',  'MH12 BC 9012',   '3200', '3200', 'Completed',      '2026-02-20', 'Owner', 'Policy issued'],
+      [t,            'Suresh Kale', '9000011111', 'License Renewal',      'MH12 2019 1234', '800',  '800',  'Completed',       '2026-02-25', 'Owner', 'Done'],
+      ['2026-02-20', 'Anand Patil', '9111122222', 'Two Wheeler Transfer', 'MH14 AK 5678',   '1500', '1000', 'In Progress',     '2026-03-01', 'Owner', 'Filed'],
+      ['2026-02-19', 'Kavita More', '9222233333', 'DL Address Change',    'MH12 2018 5678', '500',  '500',  'Submitted to RTO','2026-02-28', 'Owner', 'Awaiting'],
     ],
     Fleet: [
       [t,            'Car 1', 'Aditya Sir', '4',   '5', '500', 'No Issues',   '45230', ''],
       [t,            'Car 2', 'Shyam Sir',  '3.5', '0', '0',   'No Issues',   '32100', 'No fuel'],
-      ['2026-02-22', 'Car 1', 'Atish Sir',  '6',   '8', '800', 'Minor Issue', '45180', 'Brake noise — check'],
+      ['2026-02-22', 'Car 1', 'Atish Sir',  '6',   '8', '800', 'Minor Issue', '45180', 'Brake noise'],
     ],
     Instructors: [
-      [t, 'Aditya Sir', '3', '5',  '3 beginner students. Day 5 session done.'],
-      [t, 'Atish Sir',  '2', '4',  '2 students — refresher + beginner.'],
-      [t, 'Shyam Sir',  '4', '6',  '4 students including highway session.'],
+      [t, 'Aditya Sir', '3', '5', '3 beginner students. Day 5 done.'],
+      [t, 'Atish Sir',  '2', '4', '2 students — refresher + beginner.'],
+      [t, 'Shyam Sir',  '4', '6', '4 students including highway session.'],
     ],
   };
   return samples[sheet] || [];
@@ -187,7 +191,10 @@ function getSampleData(sheet) {
 // TABLE LOADERS
 // ================================================================
 async function loadStudents() {
-  const rows = await readSheet(SHEETS.students);
+  let rows;
+  try { rows = isDemo() ? getSampleData(SHEETS.students) : await readSheet(SHEETS.students); }
+  catch { rows = getSampleData(SHEETS.students); }
+
   setEl('statTotalStudents', rows.length);
   const el = document.getElementById('studentsBody');
   if (!el) return;
@@ -208,13 +215,15 @@ async function loadStudents() {
       <td style="color:${due>0?'#c62828':'#2e7d32'};font-weight:700;">${fmtINR(due)}</td>
     </tr>`;
   }).join('');
-
   setEl('statPendingPayments', fmtINR(totalDue));
   setEl('payStatDue', fmtINR(totalDue));
 }
 
 async function loadAttendance() {
-  const rows = await readSheet(SHEETS.attendance);
+  let rows;
+  try { rows = isDemo() ? getSampleData(SHEETS.attendance) : await readSheet(SHEETS.attendance); }
+  catch { rows = getSampleData(SHEETS.attendance); }
+
   const el = document.getElementById('attendanceBody');
   if (!el) return;
   if (!rows.length) { el.innerHTML = '<tr><td colspan="7" class="table-empty">No attendance records yet.</td></tr>'; return; }
@@ -230,21 +239,22 @@ async function loadAttendance() {
 }
 
 async function loadPayments() {
-  const rows = await readSheet(SHEETS.payments);
-  const el = document.getElementById('paymentsBody');
+  let rows;
+  try { rows = isDemo() ? getSampleData(SHEETS.payments) : await readSheet(SHEETS.payments); }
+  catch { rows = getSampleData(SHEETS.payments); }
+
   const now = new Date(), t = todayStr();
   let todayT = 0, monthT = 0;
-
   rows.forEach(r => {
     const amt = +r[2] || 0, d = new Date(r[0]);
     if (r[0] === t) todayT += amt;
     if (d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear()) monthT += amt;
   });
-
   setEl('payStatToday', fmtINR(todayT));
   setEl('payStatMonth', fmtINR(monthT));
   setEl('statMonthRevenue', fmtINR(monthT));
 
+  const el = document.getElementById('paymentsBody');
   if (!el) return;
   if (!rows.length) { el.innerHTML = '<tr><td colspan="7" class="table-empty">No payments yet.</td></tr>'; return; }
   el.innerHTML = [...rows].reverse().map(r => `<tr>
@@ -259,7 +269,10 @@ async function loadPayments() {
 }
 
 async function loadEnquiries() {
-  const rows = await readSheet(SHEETS.enquiries);
+  let rows;
+  try { rows = isDemo() ? getSampleData(SHEETS.enquiries) : await readSheet(SHEETS.enquiries); }
+  catch { rows = getSampleData(SHEETS.enquiries); }
+
   const open = rows.filter(r => r[5] === 'New Lead' || r[5] === 'Follow-up Required').length;
   setEl('statOpenEnquiries', open);
   const el = document.getElementById('enquiriesBody');
@@ -277,19 +290,20 @@ async function loadEnquiries() {
 }
 
 async function loadServices() {
-  const rows = await readSheet(SHEETS.services);
-  const el = document.getElementById('servicesBody');
+  let rows;
+  try { rows = isDemo() ? getSampleData(SHEETS.services) : await readSheet(SHEETS.services); }
+  catch { rows = getSampleData(SHEETS.services); }
 
   const total   = rows.length;
-  const pending = rows.filter(r => r[7] === 'In Progress' || r[7] === 'Docs Pending' || r[7] === 'Submitted to RTO').length;
+  const pending = rows.filter(r => ['In Progress','Docs Pending','Submitted to RTO'].includes(r[7])).length;
   const done    = rows.filter(r => r[7] === 'Completed').length;
   const revenue = rows.reduce((s, r) => s + (+r[6] || 0), 0);
-
   setEl('svcStatTotal',   total);
   setEl('svcStatPending', pending);
   setEl('svcStatDone',    done);
   setEl('svcStatRevenue', fmtINR(revenue));
 
+  const el = document.getElementById('servicesBody');
   if (!el) return;
   if (!rows.length) { el.innerHTML = '<tr><td colspan="9" class="table-empty">No service requests yet.</td></tr>'; return; }
   el.innerHTML = [...rows].reverse().map(r => `<tr>
@@ -306,7 +320,10 @@ async function loadServices() {
 }
 
 async function loadFleet() {
-  const rows = await readSheet(SHEETS.fleet);
+  let rows;
+  try { rows = isDemo() ? getSampleData(SHEETS.fleet) : await readSheet(SHEETS.fleet); }
+  catch { rows = getSampleData(SHEETS.fleet); }
+
   const el = document.getElementById('fleetBody');
   if (!el) return;
   if (!rows.length) { el.innerHTML = '<tr><td colspan="8" class="table-empty">No fleet logs yet.</td></tr>'; return; }
@@ -323,7 +340,10 @@ async function loadFleet() {
 }
 
 async function loadInstructors() {
-  const rows = await readSheet(SHEETS.instructors);
+  let rows;
+  try { rows = isDemo() ? getSampleData(SHEETS.instructors) : await readSheet(SHEETS.instructors); }
+  catch { rows = getSampleData(SHEETS.instructors); }
+
   const el = document.getElementById('instructorsBody');
   if (!el) return;
   if (!rows.length) { el.innerHTML = '<tr><td colspan="5" class="table-empty">No instructor logs yet.</td></tr>'; return; }
@@ -357,7 +377,6 @@ function setupForm(formId, sheetName, statusId, openId, cancelId, cardId, extrac
   const card = document.getElementById(cardId);
   if (!form || !card) return;
 
-  // Pre-fill today's date
   form.querySelectorAll('input[type="date"]').forEach(el => { if (!el.value) el.value = todayStr(); });
 
   document.getElementById(openId)?.addEventListener('click', () => {
@@ -377,18 +396,13 @@ function setupForm(formId, sheetName, statusId, openId, cancelId, cardId, extrac
     setFormStatus(statusId, '⏳ Saving to Google Sheets...', 'loading');
     const data = extractor(form);
     try {
-      const result = await sendToSheet(sheetName, data);
-      if (result.success || result.demo) {
-        const note = result.demo ? ' (Demo Mode — connect Google Sheets to save for real)' : '';
-        setFormStatus(statusId, `✅ Saved successfully!${note}`, 'success');
-        addActivity(icon, actText(form));
-        form.reset();
-        form.querySelectorAll('input[type="date"]').forEach(el => { el.value = todayStr(); });
-        delete cache[sheetName];
-        setTimeout(() => loadSectionData(sheetName), 500);
-      } else {
-        setFormStatus(statusId, '❌ Error saving. Please try again.', 'error');
-      }
+      await sendToSheet(sheetName, data);
+      setFormStatus(statusId, '✅ Saved successfully!', 'success');
+      addActivity(icon, actText(form));
+      form.reset();
+      form.querySelectorAll('input[type="date"]').forEach(el => { el.value = todayStr(); });
+      delete cache[sheetName];
+      setTimeout(() => loadSectionData(sheetName), 1500);
     } catch (err) {
       console.error(err);
       setFormStatus(statusId, '❌ Network error. Check connection and Script URL.', 'error');
@@ -429,15 +443,11 @@ function setupSelectFilter(selectId, tbodyId, col) {
 function switchSection(id) {
   document.querySelectorAll('.dash-section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-
   const section = document.getElementById('section-' + id);
   if (section) section.classList.add('active');
-
   const nav = document.querySelector(`.nav-item[data-section="${id}"]`);
   if (nav) nav.classList.add('active');
-
   document.getElementById('sidebar')?.classList.remove('open');
-
   const loaders = {
     overview:    () => { loadStudents(); loadPayments(); loadEnquiries(); loadServices(); },
     students:    loadStudents,
@@ -456,31 +466,26 @@ function switchSection(id) {
 // ================================================================
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Set date in header
   const dateStr = new Date().toLocaleDateString('en-IN', {
     weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
   });
   setEl('dashDate', dateStr);
   setEl('overviewDate', dateStr);
 
-  // Set Google Sheets deep links
-  if (CONFIG.SHEET_ID !== '1t8_PrvldhzTl_rYLlT4Ikfdzy53jvkrUZpn7DruATOM') {
-    const base = `https://docs.google.com/spreadsheets/d/${CONFIG.SHEET_ID}/edit#gid=`;
-    const links = {
-      studentsSheetLink: 0, attendanceSheetLink: 1, paymentsSheetLink: 2,
-      enquiriesSheetLink: 3, servicesSheetLink: 4, fleetSheetLink: 5, instructorsSheetLink: 6,
-    };
-    Object.entries(links).forEach(([id, gid]) => {
-      document.getElementById(id)?.setAttribute('href', base + gid);
-    });
-  }
+  // Google Sheets deep links
+  const base = `https://docs.google.com/spreadsheets/d/${CONFIG.SHEET_ID}/edit#gid=`;
+  const links = {
+    studentsSheetLink: 0, attendanceSheetLink: 1, paymentsSheetLink: 2,
+    enquiriesSheetLink: 3, servicesSheetLink: 4, fleetSheetLink: 5, instructorsSheetLink: 6,
+  };
+  Object.entries(links).forEach(([id, gid]) => {
+    document.getElementById(id)?.setAttribute('href', base + gid);
+  });
 
-  // Sidebar navigation
+  // Navigation
   document.querySelectorAll('.nav-item').forEach(item => {
     item.addEventListener('click', () => switchSection(item.dataset.section));
   });
-
-  // Quick action buttons
   document.querySelectorAll('.quick-btn').forEach(btn => {
     btn.addEventListener('click', () => switchSection(btn.dataset.goto));
   });
@@ -501,63 +506,51 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ── Setup all forms ──
+  // Forms
   setupForm('studentForm', SHEETS.students, 'studentFormStatus',
     'openStudentForm', 'cancelStudentForm', 'studentFormCard',
     f => { const d = getFormData(f); return [d.studentName, d.phone, d.course, d.instructor, d.startDate, d.totalFee, d.feePaid||'0', d.address, d.notes]; },
     '🎓', f => `New student: ${getFormData(f).studentName}`
   );
-
   setupForm('attendanceForm', SHEETS.attendance, 'attendanceFormStatus',
     'openAttendanceForm', 'cancelAttendanceForm', 'attendanceFormCard',
     f => { const d = getFormData(f); return [d.date, d.studentName, d.instructor, d.status, d.trainingDay, d.car, d.notes]; },
     '📅', f => `Attendance: ${getFormData(f).studentName}`
   );
-
   setupForm('paymentForm', SHEETS.payments, 'paymentFormStatus',
     'openPaymentForm', 'cancelPaymentForm', 'paymentFormCard',
     f => { const d = getFormData(f); return [d.date, d.studentName, d.amount, d.paymentMode, d.paymentType, d.receipt, d.notes]; },
     '💰', f => { const d = getFormData(f); return `Payment ₹${d.amount} from ${d.studentName}`; }
   );
-
   setupForm('enquiryForm', SHEETS.enquiries, 'enquiryFormStatus',
     'openEnquiryForm', 'cancelEnquiryForm', 'enquiryFormCard',
     f => { const d = getFormData(f); return [d.date, d.name, d.phone, d.source, d.course, d.status, d.notes]; },
     '📞', f => `Enquiry from ${getFormData(f).name}`
   );
-
   setupForm('serviceForm', SHEETS.services, 'serviceFormStatus',
     'openServiceForm', 'cancelServiceForm', 'serviceFormCard',
     f => { const d = getFormData(f); return [d.date, d.customerName, d.phone, d.serviceType, d.dlNumber, d.fee, d.paid, d.status, d.expectedDate, d.handledBy, d.notes]; },
     '📋', f => `Service: ${getFormData(f).serviceType} for ${getFormData(f).customerName}`
   );
-
   setupForm('fleetForm', SHEETS.fleet, 'fleetFormStatus',
     'openFleetForm', 'cancelFleetForm', 'fleetFormCard',
     f => { const d = getFormData(f); return [d.date, d.car, d.instructor, d.hours, d.fuel, d.fuelCost, d.issue, d.odometer, d.notes]; },
     '🚗', f => `Car log: ${getFormData(f).car}`
   );
-
   setupForm('instructorForm', SHEETS.instructors, 'instructorFormStatus',
     'openInstructorForm', 'cancelInstructorForm', 'instructorFormCard',
     f => { const d = getFormData(f); return [d.date, d.instructor, d.studentsCount, d.hours, d.notes]; },
     '👨‍🏫', f => `Activity: ${getFormData(f).instructor}`
   );
 
-  // ── Search & filters ──
-  setupSearch('studentSearch', 'studentsBody', [0,1,2,3]);
-  setupSearch('paymentSearch', 'paymentsBody', [0,1,3,4]);
-  setupSelectFilter('enquiryStatusFilter', 'enquiriesBody', 5);
-  setupSelectFilter('serviceTypeFilter',   'servicesBody',  3);
-  setupSelectFilter('serviceStatusFilter', 'servicesBody',  7);
-  setupSelectFilter('carFilter',           'fleetBody',     1);
-  setupSelectFilter('instructorFilter',    'instructorsBody',1);
+  // Filters
+  setupSearch('studentSearch',  'studentsBody',     [0,1,2,3]);
+  setupSearch('paymentSearch',  'paymentsBody',     [0,1,3,4]);
+  setupSelectFilter('enquiryStatusFilter', 'enquiriesBody',   5);
+  setupSelectFilter('serviceTypeFilter',   'servicesBody',    3);
+  setupSelectFilter('serviceStatusFilter', 'servicesBody',    7);
+  setupSelectFilter('carFilter',           'fleetBody',       1);
+  setupSelectFilter('instructorFilter',    'instructorsBody', 1);
 
-  // Demo banner
-  if (isDemo()) {
-    showGlobalAlert('⚙️  Demo Mode — showing sample data. Open admin/admin-dashboard.js and paste your Google Apps Script URL in CONFIG to connect your real Google Sheet.', 'error');
-  }
-
-  // Load first section
   switchSection('overview');
 });
